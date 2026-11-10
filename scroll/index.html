@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Presentación Viognier 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: cada hoja del guion es una sección a pantalla completa, sobre "piedra de noche" (el suelo aluvial de Los Maquis).
+   Las fotos mandan; el texto se apoya en ellas. Dorado de la marca para jerarquía, ciruela Private para Viognier y cuarteles. */
+:root{
+  --night:#120f0d; --soil:#1b1613; --stone:#2a231e;
+  --bone:#efe8dc; --ash:#a99f92; --line:rgba(239,232,220,.14);
+  --gold:#c4a35c; --gold-soft:rgba(196,163,92,.16);
+  --plum:#9a68bd; --plum-glow:#c99ae8; --plum-night:#1d1324;
+  --f-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --f-body:"Jost","Futura","Century Gothic",system-ui,sans-serif;
+  --gutter:max(16px,env(safe-area-inset-left,0px));
+  --gutter-r:max(16px,env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity;background:var(--night)}
+body{background:var(--night);color:var(--bone);font-family:var(--f-body);font-weight:300;font-size:clamp(15px,1.05vw,19px);line-height:1.6;overflow-x:hidden}
+h1,h2,h3{margin:0;text-wrap:balance;font-family:var(--f-display);font-weight:600;line-height:.95}
+p{margin:0}
+img{display:block}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- Sección base ---------- */
+.s{position:relative;min-height:100vh;min-height:100svh;scroll-snap-align:start;overflow:hidden;
+  padding-block:clamp(56px,8vh,96px);padding-left:max(var(--gutter),clamp(16px,5vw,96px));padding-right:max(var(--gutter-r),clamp(16px,5vw,96px));
+  display:grid;align-content:center}
+.s.viognier{background:var(--plum-night)}
+#genesis-1{background:radial-gradient(70% 80% at 85% 20%,#2e1d3b 0%,rgba(46,29,59,0) 60%),linear-gradient(160deg,#21152b 0%,#1d1324 45%,#140c1a 100%)}
+#genesis-2{background:radial-gradient(65% 75% at 15% 85%,#2c1b38 0%,rgba(44,27,56,0) 60%),linear-gradient(200deg,#22162c 0%,#1d1324 50%,#130b18 100%)}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.eyebrow::after{content:"";width:72px;height:1px;background:var(--gold);opacity:.7}
+.h-xl{font-size:clamp(3rem,7vw,7.6rem);letter-spacing:-.01em}
+.h-l{font-size:clamp(2.6rem,5vw,5.4rem)}
+.h-xl em,.h-l em{font-style:italic;font-weight:500;color:var(--gold)}
+.viognier .h-xl em,.viognier .h-l em{color:var(--plum-glow)}
+.lede{font-size:clamp(1.05rem,1.3vw,1.35rem);line-height:1.6;max-width:58ch;color:var(--bone)}
+.lede b,.body b{color:var(--gold);font-weight:500}
+.viognier .lede b,.viognier .body b{color:var(--plum-glow)}
+.body{max-width:60ch;color:rgba(239,232,220,.86);display:grid;gap:1em}
+.ph{position:relative;overflow:hidden;background:var(--stone);border-radius:8px}
+.ph img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ash);font-weight:500}
+
+/* ---------- 1 · Bienvenida ---------- */
+#bienvenida{place-items:center;text-align:center;background:radial-gradient(70% 65% at 50% 46%,#fbf8f2 0%,#f3ede2 48%,#e6dccb 100%)}
+#bienvenida .wrap{display:grid;gap:clamp(20px,4vh,40px);justify-items:center}
+#bienvenida .logo{width:clamp(150px,min(23.4vw,25.8vh),294px)}
+#bienvenida .logo img{width:100%;height:auto}
+#bienvenida .hi{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(1.6rem,2.6vw,2.6rem);color:#9a7c3a}
+#bienvenida .hint{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:#8a8178}
+
+/* ---------- 2 · La viña ---------- */
+#vina{padding:0;align-content:stretch;grid-template-rows:minmax(0,1fr) auto}
+#vina .pano{position:absolute;inset:0}
+#vina .pano img{width:100%;height:100%;object-fit:cover}
+#vina{background:#f3ede2}
+#vina .pano::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#f3ede2 0%,rgba(243,237,226,.96) 42%,rgba(243,237,226,.78) 62%,rgba(243,237,226,0) 88%)}
+#vina .txt{color:#2a1f18}#vina .eyebrow{color:#8a6d2e}#vina .eyebrow::after{background:#8a6d2e}
+#vina .h-xl{color:#2a1f18}#vina .h-xl em{color:#9a7c3a}
+#vina .lede{color:#2a1f18}#vina .lede b{color:#8a6d2e}#vina .body{color:rgba(42,31,24,.82)}
+#vina .place{color:#2a1f18}#vina .place span+span::before{background:#8a6d2e}
+#vina .in{position:relative;align-self:end;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,4vw,72px);align-items:end;
+  padding-block:clamp(40px,8vh,96px);padding-left:max(var(--gutter),clamp(16px,5vw,96px));padding-right:max(var(--gutter-r),clamp(16px,5vw,96px))}
+#vina .txt{display:grid;gap:22px}
+#vina .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#vina .pair .ph{aspect-ratio:4/5}
+.place{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);font-weight:500}
+.place span{display:flex;align-items:center;gap:8px}
+.place span+span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--gold)}
+
+/* ---------- 3 · Terroir ---------- */
+#terroir{padding:0;align-content:stretch;background:var(--night)}
+#terroir .bg{position:absolute;top:0;right:0;bottom:0;height:100%;aspect-ratio:2200/1467;max-width:none}
+#terroir .bg img{width:100%;height:100%;object-fit:cover}
+#terroir .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--night) 0%,rgba(18,15,13,.88) 18%,rgba(18,15,13,.62) 34%,rgba(18,15,13,0) 56%)}
+#terroir .in{position:relative;align-self:center;display:grid;grid-template-columns:minmax(0,46%);gap:clamp(24px,4vw,72px);align-items:center;
+  padding-block:clamp(56px,8vh,96px);padding-left:max(var(--gutter),clamp(16px,5vw,96px));padding-right:max(var(--gutter-r),clamp(16px,5vw,96px))}
+#terroir .txt{display:grid;gap:22px;color:var(--bone)}
+#terroir blockquote{margin:0;font-family:var(--f-display);font-weight:500;font-size:clamp(1.15rem,1.5vw,1.65rem);line-height:1.34;max-width:62ch;color:var(--bone)}
+#terroir blockquote b{font-weight:600;color:var(--gold)}
+#terroir .stones{aspect-ratio:4/5;border:1px solid rgba(42,31,24,.18);box-shadow:0 20px 40px rgba(42,31,24,.18)}
+.next{display:flex;align-items:center;gap:16px;font-family:var(--f-display);font-style:italic;font-size:clamp(1.3rem,1.8vw,1.9rem);color:var(--gold)}
+.next::before{content:"";width:48px;height:1px;background:var(--gold)}
+
+/* ---------- 4 · Viaje en el tiempo ---------- */
+#viaje{padding:0;align-content:stretch;background:#000}
+.show{position:absolute;inset:0}
+.show .blur{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(40px) brightness(.35) saturate(.8);transition:background-image .8s}
+.show figure{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease}
+.show figure.on{opacity:1}
+.show figure img{width:100%;height:100%;object-fit:contain;transform:scale(1);transition:transform 2.6s ease-out}
+.show figure.on img{transform:scale(1.04)}
+.vhead{position:absolute;z-index:3;top:calc(env(safe-area-inset-top,0px) + clamp(20px,4vh,40px));left:max(var(--gutter),clamp(16px,4vw,64px));right:max(var(--gutter-r),clamp(16px,4vw,64px));
+  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;pointer-events:none}
+.vhead h2{font-size:clamp(1.6rem,2.6vw,2.7rem);padding:14px 26px 16px 22px;background:rgba(18,15,13,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-left:2px solid var(--gold);line-height:1}
+.vhead h2 em{font-style:italic;color:var(--gold);font-weight:500}
+.vcount{padding:10px 16px;background:rgba(18,15,13,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-family:var(--f-display);font-weight:600;font-size:clamp(1.4rem,2vw,2rem);font-variant-numeric:tabular-nums;color:var(--bone);text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.vcount small{color:var(--ash);font-size:.7em}
+.vbar{position:absolute;z-index:3;left:max(var(--gutter),clamp(16px,4vw,64px));right:max(var(--gutter-r),clamp(16px,4vw,64px));bottom:calc(env(safe-area-inset-bottom,0px) + clamp(20px,4vh,40px));
+  display:flex;align-items:center;gap:18px}
+.vtrack{flex:1;height:2px;background:rgba(239,232,220,.2);position:relative}
+.vtrack i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold);transition:width .4s linear}
+.vbtn{width:46px;height:46px;border-radius:50%;border:1px solid rgba(239,232,220,.35);background:rgba(18,15,13,.55);display:grid;place-items:center;cursor:pointer;flex:none;transition:border-color .25s,background .25s}
+.vbtn:hover{border-color:var(--gold);background:rgba(18,15,13,.8)}
+.vbtn svg{width:18px;height:18px;fill:none;stroke:var(--bone);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.vbtn .ic-play{fill:var(--bone);stroke:none}
+.vbtn[data-playing="true"] .ic-play{display:none}
+.vbtn[data-playing="false"] .ic-pause{display:none}
+
+/* ---------- 5 · Innovación ---------- */
+#innovacion .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,5vw,96px);align-items:center}
+#innovacion .txt{display:grid;gap:26px}
+.marks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid rgba(196,163,92,.28);border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(196,163,92,.16) 0%,rgba(196,163,92,.05) 38%,rgba(10,8,7,.55) 100%)}
+.marks div{background:transparent;padding:16px 18px;display:grid;gap:2px;min-width:0}
+.marks div:nth-child(odd){border-right:1px solid var(--line)}
+.marks div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+.marks b{font-family:var(--f-display);font-weight:600;font-size:clamp(1.5rem,2.2vw,2.3rem);line-height:1.05;color:var(--gold);font-variant-numeric:lining-nums}
+.marks span{font-size:.82rem;color:var(--ash)}
+.mosaic{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:min(76vh,780px)}
+.mosaic .a{grid-row:1/3}
+.mosaic .ph{min-height:0}
+
+/* ---------- 6 · Génesis I ---------- */
+#genesis-1 .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,96px);align-items:center}
+#genesis-1 .txt{display:grid;gap:26px}
+.big35{display:flex;align-items:flex-end;gap:22px;padding:22px 26px;border:1px solid rgba(196,163,92,.28);border-radius:10px;background:linear-gradient(135deg,rgba(196,163,92,.16) 0%,rgba(196,163,92,.05) 38%,rgba(10,8,7,.55) 100%)}
+.big35 b{font-family:var(--f-display);font-weight:600;font-size:clamp(5.5rem,11vw,11rem);line-height:.78;color:var(--plum-glow);font-variant-numeric:lining-nums}
+.big35 span{font-size:clamp(.95rem,1.2vw,1.2rem);line-height:1.4;max-width:22ch;padding-bottom:6px}
+.trio{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:min(78vh,800px)}
+.trio .a{grid-column:1/3}
+
+/* ---------- 7 · Génesis II ---------- */
+#genesis-2 .grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(28px,5vw,96px);align-items:center}
+#genesis-2 .tall{height:min(80vh,820px)}
+#genesis-2 .txt{display:grid;gap:20px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:56px minmax(0,1fr);gap:2px 16px;padding:12px 0;border-top:1px solid var(--line)}
+.steps li:last-child{border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(s,decimal-leading-zero);grid-row:span 2;font-family:var(--f-display);font-weight:600;font-size:2.1rem;line-height:.95;color:var(--plum-glow)}
+.steps h3{font-size:clamp(1.4rem,1.9vw,1.9rem);line-height:1.1;color:var(--bone)}
+.steps p{font-size:.95rem;color:rgba(239,232,220,.8);max-width:58ch}
+.challenge{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(1.35rem,2vw,2.1rem);line-height:1.25;color:var(--plum-glow);max-width:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duo .ph{aspect-ratio:5/2}
+
+/* ---------- 8 · Ficha digital ---------- */
+#ficha{background:radial-gradient(55% 70% at 28% 55%,#36214a 0%,rgba(54,33,74,0) 70%),linear-gradient(135deg,#21152b 0%,#1d1324 50%,#120a17 100%)}
+#ficha .grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,96px);align-items:center}
+#ficha .bottle{height:min(80vh,820px);justify-self:center;position:relative}
+#ficha .bottle img{height:100%;width:auto;max-width:none;filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+#ficha .txt{display:grid;gap:28px}
+#ficha .pvt{width:min(100%,380px);filter:brightness(0) invert(1)}
+.go{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(20px,3vw,40px)}
+.qr{background:#fff;padding:14px;display:grid;gap:8px;justify-items:center}
+.qr #qr{width:180px;height:180px}
+.qr #qr img,.qr #qr canvas{width:180px!important;height:180px!important}
+.qr small{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#3a2450;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--plum);color:#fff;text-decoration:none;padding:16px 28px;font-weight:500;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;transition:background .25s}
+.btn:hover{background:#ad7cd0}
+.btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+.go .or{display:grid;gap:14px}
+
+/* ---------- 9 · Cuatro vinos ---------- */
+#vinos{text-align:center;background:radial-gradient(70% 50% at 50% 78%,#2b221b 0%,var(--night) 70%)}
+#vinos .wrap{display:grid;gap:clamp(20px,4vh,44px);justify-items:center}
+#vinos .h-l{max-width:26ch;font-size:clamp(2.2rem,3.8vw,4.2rem)}
+.lineup{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,3vw,56px);width:min(100%,1200px);align-items:end}
+.lineup a{display:grid;gap:16px;justify-items:center;text-decoration:none;color:inherit}
+.lineup .b{height:min(44vh,480px);display:flex;align-items:flex-end;justify-content:center;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.lineup a:hover .b{transform:translateY(-8px)}
+.lineup .b img{height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 22px 26px rgba(0,0,0,.55))}
+.lineup .b.dark img{height:118%;margin-bottom:-6%;-webkit-mask:radial-gradient(48% 50% at 50% 50%,#000 60%,transparent 100%);mask:radial-gradient(48% 50% at 50% 50%,#000 60%,transparent 100%);filter:none}
+.lineup h3{font-size:clamp(1.25rem,1.8vw,1.8rem);line-height:1.05}
+.lineup small{display:block;font-family:var(--f-body);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-top:6px}
+.rule{width:min(100%,1200px);height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin-top:-8px}
+
+/* ---------- 10–13 · Vinos ---------- */
+.wine{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.75fr) minmax(0,.9fr);gap:clamp(20px,3vw,56px);align-items:center}
+.wine .bottle{height:min(82vh,860px);display:flex;justify-content:center;align-items:center;min-width:0}
+.wine .bottle img{height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 26px 34px rgba(0,0,0,.6))}
+.wine .bottle.dark img{object-fit:cover;width:100%;-webkit-mask:radial-gradient(60% 55% at 50% 50%,#000 55%,transparent 100%);mask:radial-gradient(60% 55% at 50% 50%,#000 55%,transparent 100%);filter:none}
+.wine .main{display:grid;gap:clamp(16px,2.4vh,26px);min-width:0}
+.wine .h-l{font-size:clamp(2.4rem,4.4vw,4.8rem)}
+.comp{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline}
+.comp .k{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ash);font-weight:500}
+.comp .v{font-family:var(--f-display);font-weight:600;font-size:clamp(1.3rem,1.7vw,1.7rem);color:var(--bone)}
+.comp .v b{color:var(--plum-glow);font-weight:600}
+.spec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--line)}
+.spec div{padding:12px 14px 12px 0;display:grid;gap:2px;min-width:0}
+.spec div+div{padding-left:14px;border-left:1px solid var(--line)}
+.spec small{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ash);font-weight:500}
+.spec b{font-family:var(--f-display);font-weight:600;font-size:clamp(1.6rem,2.4vw,2.5rem);line-height:1;color:var(--gold);font-variant-numeric:tabular-nums lining-nums}
+.spec b span{font-family:var(--f-body);font-size:.36em;font-weight:400;color:var(--ash);margin-left:3px;letter-spacing:.04em}
+.map{position:relative;border:1px solid var(--line);background:#0b0a09;border-radius:8px;overflow:hidden}
+.map svg{display:block;width:100%;height:auto}
+.map .base{filter:grayscale(1) brightness(.62) contrast(1.15)}
+.map .hl{fill:var(--plum);fill-opacity:.55;stroke:var(--plum-glow);stroke-width:2.2;stroke-linejoin:round;animation:glow 2.8s ease-in-out infinite}
+.map .tag rect{fill:var(--plum)} .map .tag text{fill:#fff;font-family:var(--f-body);font-size:13px;font-weight:600;letter-spacing:.06em}
+@keyframes glow{0%,100%{fill-opacity:.5}50%{fill-opacity:.8}}
+.mapcap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.mapcap .who{display:flex;align-items:center;gap:10px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone);font-weight:500}
+.mapcap .who i{width:12px;height:12px;background:var(--plum);border:1px solid var(--plum-glow)}
+.side{display:grid;gap:12px;align-content:center;min-width:0}
+.side .ph.portrait{aspect-ratio:2/3;max-height:62vh}
+.side .ph.land{aspect-ratio:3/2}
+.side .ph.tall{aspect-ratio:9/16;max-height:80vh}
+.blend{display:grid;gap:8px}
+.blend .bar{display:flex;height:34px;border:1px solid var(--line)}
+.blend .bar span{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:#fff;min-width:0;overflow:hidden;white-space:nowrap}
+.blend .key{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.78rem;color:var(--bone)}
+.blend .key span{display:flex;align-items:center;gap:7px}
+.blend .key i{width:10px;height:10px}
+.blend .key em{font-style:normal;color:var(--ash)}
+
+/* ---------- 14 · Gracias ---------- */
+#gracias{padding:0;align-content:stretch;justify-items:center}
+#gracias .bg{position:absolute;inset:0}
+#gracias .bg img{width:100%;height:100%;object-fit:cover}
+#gracias .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--night) 0%,rgba(18,15,13,.95) 26%,rgba(18,15,13,.6) 46%,rgba(18,15,13,0) 70%)}
+#gracias .in{position:relative;align-self:end;display:grid;gap:clamp(14px,2.4vh,24px);justify-items:center;text-align:center;padding-inline:16px;padding-bottom:clamp(64px,11vh,120px)}
+#gracias .webqr{display:grid;gap:12px;justify-items:center;text-decoration:none;color:var(--bone)}
+#gracias .tile{background:#fff;padding:12px;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+#gracias #qrweb{display:block;width:clamp(120px,13vh,160px);height:clamp(120px,13vh,160px)}
+#gracias #qrweb img,#gracias #qrweb canvas{width:100%!important;height:100%!important}
+#gracias .url{font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--gold)}
+#gracias .logo{width:clamp(110px,12vw,170px)}
+#gracias .logo img{width:100%;height:auto}
+
+/* ---------- Navegación de presentación ---------- */
+.dots{position:fixed;z-index:20;right:max(14px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:grid;gap:4px;list-style:none;margin:0;padding:0}
+.dots a{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:4px 0;text-decoration:none;color:var(--ash)}
+.dots a span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;opacity:0;transform:translateX(6px);transition:opacity .25s,transform .25s;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.dots a i{width:6px;height:6px;border-radius:50%;background:rgba(239,232,220,.35);transition:all .3s;flex:none}
+.dots:hover a span,.dots a:focus-visible span{opacity:1;transform:none}
+.dots a.on i{background:var(--gold);height:20px;border-radius:3px}
+.dots a.on span{color:var(--gold)}
+.dots{background:rgba(18,15,13,.5);border-radius:14px;padding:6px}
+.hud{position:fixed;z-index:20;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 14px);display:flex;align-items:center;gap:10px}
+.hud .n{background:rgba(18,15,13,.5);padding:6px 10px;border-radius:14px;text-align:center;font-family:var(--f-display);font-weight:600;font-size:1.05rem;color:var(--bone);font-variant-numeric:tabular-nums;text-shadow:0 1px 10px rgba(0,0,0,.8);min-width:56px}
+.hud .n small{color:var(--ash)}
+.hud button{width:36px;height:36px;border:1px solid rgba(239,232,220,.25);background:rgba(18,15,13,.6);display:grid;place-items:center;cursor:pointer;transition:border-color .25s}
+.hud button:hover{border-color:var(--gold)}
+.hud svg{width:15px;height:15px;fill:none;stroke:var(--bone);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1100px){
+  .wine{grid-template-columns:minmax(0,.5fr) minmax(0,1.5fr)}
+  .wine .side{grid-column:1/-1;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  .wine .bottle{height:min(60vh,560px)}
+  .side .ph.portrait,.side .ph.tall{aspect-ratio:3/2;max-height:none}
+}
+@media (max-width:860px){
+  html{scroll-snap-type:none}
+  .s{min-height:auto;padding-block:72px}
+  #bienvenida,#viaje{min-height:100svh}
+  #vina,#terroir,#gracias{min-height:auto}
+  #vina .pano{position:relative;height:56vw}
+  #vina .pano::after{background:linear-gradient(180deg,transparent 50%,#f3ede2 100%)}
+  #vina .in,#terroir .in,#innovacion .grid,#genesis-1 .grid,#genesis-2 .grid,#ficha .grid{grid-template-columns:minmax(0,1fr)}
+  #terroir .bg{left:0;width:100%;aspect-ratio:auto}
+  #terroir .bg::after{background:linear-gradient(0deg,var(--night) 0%,rgba(18,15,13,.9) 70%,rgba(18,15,13,.6) 100%)}
+  .mosaic,.trio{height:auto}
+  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .mosaic .a{grid-row:auto;grid-column:1/-1;aspect-ratio:3/2}
+  .mosaic .ph:not(.a),.trio .ph{aspect-ratio:1}
+  .trio .a{aspect-ratio:3/2}
+  #genesis-2 .tall{height:auto;aspect-ratio:3/2}
+  #ficha .bottle{height:56vh}
+  .lineup{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:40px}
+  .lineup .b{height:36vh}
+  .wine{grid-template-columns:minmax(0,1fr)}
+  .wine .bottle{height:48vh}
+  .spec{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .spec div:nth-child(3){padding-left:0;border-left:0}
+  .spec div:nth-child(n+3){border-top:1px solid var(--line)}
+  .dots{display:none}
+  #gracias{min-height:80svh}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .show figure,.show figure img,.lineup .b{transition:none}
+  .show figure.on img{transform:none}
+  .map .hl{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 1 · BIENVENIDA -->
+<section class="s" id="bienvenida" data-label="Bienvenida">
+  <div class="wrap">
+    <div class="logo"><img src="img/logo-vs.svg" alt="Valle Secreto vineyards &amp; winery" width="1027" height="812"></div>
+    <p class="hi">Bienvenidos</p>
+    <p class="hint">Avanza con las flechas del teclado o desplazándote</p>
+  </div>
+</section>
+
+<!-- 2 · LA VIÑA -->
+<section class="s" id="vina" data-label="La viña">
+  <div class="pano"><img src="img/2-DJI_20260324133628_0086_D.webp" alt="Vista aérea del valle y la cordillera de los Andes desde Los Maquis"></div>
+  <div class="in">
+    <div class="txt">
+      <div class="eyebrow">Los Maquis · Malloa</div>
+      <h2 class="h-xl">Viña Valle <em>Secreto</em></h2>
+      <p class="lede">Ubicada en el pie de monte de la Cordillera de los Andes, en Los Maquis, Malloa, Valle del Cachapoal, Valle Secreto presenta <b>suelos franco-arcillosos con abundante presencia de piedras de origen aluvial</b>. Su clima mediterráneo, influenciado por la precordillera, presenta importantes oscilaciones térmicas y vientos que favorecen una maduración gradual de las uvas.</p>
+      <p class="body">La interacción entre suelo, clima y manejo vitícola contribuye a la concentración frutal, la madurez fenólica, la frescura y el equilibrio entre acidez, alcohol y estructura tánica que caracterizan sus vinos.</p>
+      <div class="place"><span>Pie de monte andino</span><span>Valle del Cachapoal</span><span>Clima mediterráneo</span></div>
+    </div>
+    <div class="pair">
+      <div class="ph"><img src="img/2-DSC06033.webp" alt="Racimo de uva tinta en la parra" loading="lazy"></div>
+      <div class="ph"><img src="img/2-DSC06054.webp" alt="Tronco de una vid antigua" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · TERROIR -->
+<section class="s" id="terroir" data-label="Terroir">
+  <div class="bg"><img src="img/3-DSC06088.webp" alt="Suelo de Valle Secreto con piedras de origen aluvial" loading="lazy"></div>
+  <div class="in">
+    <div class="txt">
+      <div class="eyebrow">El suelo que nos sostiene</div>
+      <h2 class="h-xl">Herencia del <em>terroir</em></h2>
+      <blockquote>Hoy estamos aquí para mirar de frente el suelo que nos sostiene: esas <b>piedras aluviales que guardan memoria</b>. De ese suelo nacen vinos profundos y frescos, y nuestra tarea es cuidarlo con humildad, como un patrimonio que no nos pertenece solo a nosotros, sino también a quienes vendrán. Queremos honrar esa tierra hoy y compartir su emoción con ustedes.</blockquote>
+      <p class="next">Los invito a un viaje en el tiempo para mostrar nuestra evolución.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · VIAJE EN EL TIEMPO -->
+<section class="s" id="viaje" data-label="Viaje en el tiempo">
+  <div class="show" id="show" aria-live="off">
+    <div class="blur" id="showBlur"></div>
+  </div>
+  <div class="vhead">
+    <h2>Un viaje <em>en el tiempo</em></h2>
+    <div class="vcount" id="vcount">1 <small>/ 37</small></div>
+  </div>
+  <div class="vbar">
+    <button class="vbtn" id="vprev" aria-label="Foto anterior"><svg viewBox="0 0 18 18"><path d="M11 4 6 9l5 5"/></svg></button>
+    <button class="vbtn" id="vplay" aria-label="Reproducir o pausar" data-playing="false"><svg viewBox="0 0 18 18"><path class="ic-play" d="M6 3.5v11l9-5.5z"/><path class="ic-pause" d="M6.5 4v10M11.5 4v10"/></svg></button>
+    <button class="vbtn" id="vnext" aria-label="Foto siguiente"><svg viewBox="0 0 18 18"><path d="m7 4 5 5-5 5"/></svg></button>
+    <div class="vtrack"><i id="vfill"></i></div>
+    <button class="vbtn" id="vrestart" aria-label="Volver al inicio del recorrido"><svg viewBox="0 0 18 18"><path d="M3.5 9a5.5 5.5 0 1 0 1.8-4.1M3.5 3v3.2h3.2"/></svg></button>
+  </div>
+</section>
+
+<!-- 5 · INNOVACIÓN -->
+<section class="s" id="innovacion" data-label="Innovación">
+  <div class="grid">
+    <div class="txt">
+      <div class="eyebrow">Filosofía del proyecto</div>
+      <h2 class="h-l">Innovadores <em>como filosofía</em></h2>
+      <div class="body">
+        <p>Valle Secreto no comienza hoy a innovar; lleva <b>20 años</b> atreviéndose a elaborar vinos que pocos se han propuesto hacer en Chile. Incluso la arquitectura de nuestra bodega es claro reflejo de esto.</p>
+        <p>Fuimos pioneros al atrevernos con un <b>Cabernet Franc de excelencia</b> y, sobre todo, con un <b>Petit Verdot 100%</b>, una apuesta que muy pocos enólogos en Chile han asumido. Ese espíritu hoy nos guía hacia un nuevo desafío: develar la grandeza de nuestro Viognier.</p>
+      </div>
+      <div class="marks">
+        <div><b>20 años</b><span>innovando en el Cachapoal</span></div>
+        <div><b>Petit Verdot 100%</b><span>una apuesta casi única en Chile</span></div>
+        <div><b>Clon 642</b><span>Viognier de frescura y aromas inolvidables</span></div>
+        <div><b>2009</b><span>año de plantación del viñedo de Viognier</span></div>
+      </div>
+    </div>
+    <div class="mosaic">
+      <div class="ph a"><img src="img/5-_DSC8954.webp" alt="Sala de estanques de acero inoxidable de la bodega" loading="lazy"></div>
+      <div class="ph"><img src="img/5-CABERNET_FRANC_2022_VERTICAL.webp" alt="Botella de Cabernet Franc 2022 entre troncos de vid" loading="lazy"></div>
+      <div class="ph"><img src="img/5-ORIGEN.webp" alt="Botella de Origen Cabernet Franc sobre piedras" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · GÉNESIS I -->
+<section class="s viognier" id="genesis-1" data-label="Génesis I">
+  <div class="grid">
+    <div class="txt">
+      <div class="eyebrow">Private Viognier · Su génesis</div>
+      <h2 class="h-l">Una nueva expresión <em>de nuestro terroir</em></h2>
+      <div class="big35"><b>35</b><span>Hoy integramos un selecto grupo de no más de 35 etiquetas chilenas de Viognier 100% en el mercado.</span></div>
+      <div class="body">
+        <p>Después de años explorando su potencial en cosechas tardías, queremos compartir una nueva expresión de nuestro terroir.</p>
+        <p>En tiempos en que el Viognier pierde terreno y las viñas están arrancando las vides, <b>Valle Secreto apuesta por demostrar la grandeza de esta extraordinaria variedad</b>.</p>
+      </div>
+    </div>
+    <div class="trio">
+      <div class="ph a"><img src="img/6-IMG_0067.webp" alt="Racimos de Viognier en el viñedo" loading="lazy"></div>
+      <div class="ph"><img src="img/6-IMG_0078.webp" alt="Racimo de Viognier dorado bajo el sol" loading="lazy"></div>
+      <div class="ph"><img src="img/6-IMG_0081.webp" alt="Racimo de Viognier entre hojas" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · GÉNESIS II -->
+<section class="s viognier" id="genesis-2" data-label="Génesis II">
+  <div class="grid">
+    <div class="ph tall"><img src="img/7-IMG_1360.webp" alt="Cosechadores entre las hileras de Viognier" loading="lazy"></div>
+    <div class="txt">
+      <div class="eyebrow">Private Viognier · Su génesis</div>
+      <h2 class="h-l">¿Cómo se <em>inició todo?</em></h2>
+      <ol class="steps">
+        <li><h3>Cosecha en su fecha precisa</h3><p>Programada muy temprano en la mañana, para que la temperatura de la uva fuera baja.</p></li>
+        <li><h3>Prensado suave</h3><p>Para lograr una oxidación y una extracción fenólica controladas.</p></li>
+        <li><h3>Trabajo sobre lías</h3><p>En acero inoxidable y barrica, aporta volumen, redondez y complejidad, sin renunciar a su expresión frutal.</p></li>
+      </ol>
+      <p class="challenge">El gran desafío: transformar una variedad de acidez naturalmente moderada en un vino fresco, elegante y de carácter inolvidable.</p>
+      <div class="duo">
+        <div class="ph"><img src="img/7-IMG_1408.webp" alt="Tractor con gamelas de cosecha en el viñedo" loading="lazy"></div>
+        <div class="ph"><img src="img/7-IMG_1426.webp" alt="Equipo de cosecha trabajando entre las hileras" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · FICHA DIGITAL -->
+<section class="s viognier" id="ficha" data-label="Ficha digital">
+  <div class="grid">
+    <div class="bottle"><img src="img/viognier-botella.webp" alt="Botella de Private Viognier 2025" loading="lazy"></div>
+    <div class="txt">
+      <div class="eyebrow">Presentación</div>
+      <img class="pvt" src="img/pvt.svg" alt="Private" loading="lazy">
+      <h2 class="h-l">Viognier 2025, <em>ficha digital</em></h2>
+      <p class="lede">Todo el vino en una sola pieza interactiva: análisis técnico, cómo se hace, nota de cata y maridaje. Escanea el código con tu teléfono para recorrerla.</p>
+      <div class="go">
+        <div class="qr"><div id="qr" role="img" aria-label="Código QR de la ficha digital de Private Viognier 2025"></div><small>Escanea</small></div>
+        <div class="or">
+          <a class="btn" href="../ficha/" target="_blank" rel="noopener">Abrir la ficha <svg viewBox="0 0 16 16"><path d="M5 3h8v8M13 3 3 13"/></svg></a>
+          <span class="cap">Se abre en una pestaña nueva</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · CUATRO VINOS -->
+<section class="s" id="vinos" data-label="Cuatro vinos">
+  <div class="wrap">
+    <div class="eyebrow">Innovación en el tiempo</div>
+    <h2 class="h-l">A continuación, veremos este viaje en el tiempo <em>por la innovación</em></h2>
+    <div class="lineup">
+      <a href="#fruta-madre"><div class="b"><img src="img/b-fruta-madre.webp" alt="Botella De Fruta Madre 2024" loading="lazy"></div><h3>De Fruta Madre<small>2024</small></h3></a>
+      <a href="#origen"><div class="b"><img src="img/b-origen-cf.webp" alt="Botella Origen Cabernet Franc 2024" loading="lazy"></div><h3>Origen Cabernet Franc<small>2024</small></h3></a>
+      <a href="#private-cs"><div class="b"><img src="img/b-private-cs.webp" alt="Botella Private Cabernet Sauvignon" loading="lazy"></div><h3>Private Cabernet Sauvignon<small>2020</small></h3></a>
+      <a href="#profundo"><div class="b"><img src="img/b-profundo-t.webp" alt="Botella Profundo 2020" loading="lazy"></div><h3>Profundo<small>2020</small></h3></a>
+    </div>
+    <div class="rule"></div>
+  </div>
+</section>
+
+<!-- 10 · DE FRUTA MADRE -->
+<section class="s" id="fruta-madre" data-label="De Fruta Madre">
+  <div class="wine">
+    <div class="bottle"><img src="img/b-fruta-madre.webp" alt="Botella De Fruta Madre 2024" loading="lazy"></div>
+    <div class="main">
+      <div class="eyebrow">Cosecha 2024</div>
+      <h2 class="h-l">De Fruta <em>Madre</em></h2>
+      <div class="comp"><span class="k">Composición</span><span class="v"><b>100%</b> Carménère</span><span class="k">Cuartel de origen</span><span class="v">C7B</span></div>
+      <div class="spec">
+        <div><small>Alcohol</small><b>13<span>%</span></b></div>
+        <div><small>pH</small><b>3,67</b></div>
+        <div><small>Acidez total</small><b>4,07<span>g/l</span></b></div>
+        <div><small>Azúcar residual</small><b>2,04<span>g/l</span></b></div>
+      </div>
+      <div><div class="map" data-map="c7b"></div>
+        <div class="mapcap"><span class="who"><i></i>Cuartel C7B · Carménère</span><span class="cap">Viñedo Valle Secreto, Los Maquis</span></div></div>
+    </div>
+    <div class="side">
+      <div class="ph land"><img src="img/10-GRUPAL.webp" alt="Las cuatro versiones de De Fruta Madre entre racimos y sarmientos" loading="lazy"></div>
+      <p class="cap">Las cuatro versiones de De Fruta Madre: cada etiqueta lleva el campo de donde proviene.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · ORIGEN CABERNET FRANC -->
+<section class="s" id="origen" data-label="Origen CF">
+  <div class="wine">
+    <div class="bottle"><img src="img/b-origen-cf.webp" alt="Botella Origen Cabernet Franc 2024" loading="lazy"></div>
+    <div class="main">
+      <div class="eyebrow">Cosecha 2024</div>
+      <h2 class="h-l">Origen <em>Cabernet Franc</em></h2>
+      <div class="comp"><span class="k">Composición</span><span class="v"><b>100%</b> Cabernet Franc</span><span class="k">Cuartel de origen</span><span class="v">C7C</span></div>
+      <div class="spec">
+        <div><small>Alcohol</small><b>14<span>%</span></b></div>
+        <div><small>pH</small><b>3,41</b></div>
+        <div><small>Acidez total</small><b>5,48<span>g/l</span></b></div>
+        <div><small>Azúcar residual</small><b>2,39<span>g/l</span></b></div>
+      </div>
+      <div><div class="map" data-map="c7c"></div>
+        <div class="mapcap"><span class="who"><i></i>Cuartel C7C · Cabernet Franc</span><span class="cap">Viñedo Valle Secreto, Los Maquis</span></div></div>
+    </div>
+    <div class="side">
+      <div class="ph portrait"><img src="img/11-DSC08671.webp" alt="Huevo de piedra para vinificación en la bodega" loading="lazy"></div>
+      <div class="ph land"><img src="img/11-ORIGEN_CABERNET_FRANC.webp" alt="Origen Cabernet Franc entre piedras" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · PRIVATE CABERNET SAUVIGNON -->
+<section class="s" id="private-cs" data-label="Private CS">
+  <div class="wine">
+    <div class="bottle"><img src="img/b-private-cs.webp" alt="Botella Private Cabernet Sauvignon" loading="lazy"></div>
+    <div class="main">
+      <div class="eyebrow">Cosecha 2020</div>
+      <h2 class="h-l">Private <em>Cabernet Sauvignon</em></h2>
+      <div class="comp"><span class="k">Composición</span><span class="v"><b>100%</b> Cabernet Sauvignon</span><span class="k">Cuartel de origen</span><span class="v">C28</span></div>
+      <div class="spec">
+        <div><small>Alcohol</small><b>14,5<span>%</span></b></div>
+        <div><small>pH</small><b>3,39</b></div>
+        <div><small>Acidez total</small><b>5,46<span>g/l</span></b></div>
+        <div><small>Azúcar residual</small><b>3,29<span>g/l</span></b></div>
+      </div>
+      <div><div class="map" data-map="c28"></div>
+        <div class="mapcap"><span class="who"><i></i>Cuartel C28 · Cabernet Sauvignon</span><span class="cap">Viñedo Valle Secreto, Los Maquis</span></div></div>
+    </div>
+    <div class="side">
+      <div class="ph tall"><img src="img/12-CABERNET_SAUVIGNON_2020_VERTICAL.webp" alt="Private Cabernet Sauvignon 2020 entre troncos de vid" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · PROFUNDO -->
+<section class="s" id="profundo" data-label="Profundo">
+  <div class="wine">
+    <div class="bottle"><img src="img/b-profundo-t.webp" alt="Botella Profundo 2020" loading="lazy"></div>
+    <div class="main">
+      <div class="eyebrow">Cosecha 2020</div>
+      <h2 class="h-l"><em>Profundo</em></h2>
+      <div class="blend">
+        <div class="bar" role="img" aria-label="35% Cabernet Sauvignon, 25% Cabernet Franc, 15% Carménère, 15% Syrah, 10% Petit Verdot">
+          <span style="flex:35;background:#5b2f73">35%</span><span style="flex:25;background:#7a4596">25%</span><span style="flex:15;background:#9a68bd">15%</span><span style="flex:15;background:#b48ad3">15%</span><span style="flex:10;background:#ceaee6;color:#2a1838">10%</span>
+        </div>
+        <div class="key">
+          <span><i style="background:#5b2f73"></i>Cabernet Sauvignon <em>C28</em></span>
+          <span><i style="background:#7a4596"></i>Cabernet Franc <em>C8B</em></span>
+          <span><i style="background:#9a68bd"></i>Carménère <em>C4S</em></span>
+          <span><i style="background:#b48ad3"></i>Syrah <em>C3</em></span>
+          <span><i style="background:#ceaee6"></i>Petit Verdot <em>C8A</em></span>
+        </div>
+      </div>
+      <div class="spec">
+        <div><small>Alcohol</small><b>14,5<span>%</span></b></div>
+        <div><small>pH</small><b>3,39</b></div>
+        <div><small>Acidez total</small><b>5,43<span>g/l</span></b></div>
+        <div><small>Azúcar residual</small><b>2,96<span>g/l</span></b></div>
+      </div>
+      <div><div class="map" data-map="profundo"></div>
+        <div class="mapcap"><span class="who"><i></i>Cuarteles e hileras de origen · 5 cepas</span><span class="cap">Viñedo Valle Secreto, Los Maquis</span></div></div>
+    </div>
+    <div class="side">
+      <div class="ph portrait"><img src="img/13-PROFUNDO_CAJAS.webp" alt="Botella de Profundo en su caja de madera" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · GRACIAS -->
+<section class="s" id="gracias" data-label="Cierre">
+  <div class="bg"><img src="img/14-Valle_Secreto.webp" alt="" loading="lazy"></div>
+  <div class="in">
+    <div class="logo"><img src="img/logo-claro.webp" alt="Valle Secreto vineyards &amp; winery" width="1050" height="830" loading="lazy"></div>
+    <a class="webqr" href="https://vallesecreto.cl" target="_blank" rel="noopener"><span class="tile"><span id="qrweb" role="img" aria-label="Código QR de vallesecreto.cl"></span></span><span class="url">vallesecreto.cl</span></a>
+  </div>
+</section>
+
+<nav aria-label="Secciones"><ol class="dots" id="dots"></ol></nav>
+<div class="hud">
+  <span class="n" id="hudn">1 <small>/ 14</small></span>
+  <button id="fs" aria-label="Pantalla completa"><svg viewBox="0 0 16 16"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg></button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  /* ---------- Mapas de cuarteles (coordenadas sobre la imagen del viñedo, 1074 × 455) ---------- */
+  var MAPS = {
+    c7b:[{p:"712,286 870,286 872,335 710,334",t:"C7B",x:791,y:282}],
+    c7c:[{p:"705,339 876,340 882,440 726,439 700,362",t:"C7C",x:792,y:335}],
+    c28:[{p:"422,78 495,96 495,133 503,166 503,218 466,218 466,193 411,192",t:"C28",x:458,y:70}],
+    profundo:[
+      {p:"422,79 440,79 440,190 422,190",t:"C28 · CS",x:431,y:72},
+      {p:"755,96 844,96 844,118 755,118",t:"C4S · CA",x:800,y:89},
+      {p:"699,178 851,178 851,188 699,188",t:"C3 · SY",x:775,y:171},
+      {p:"876,233 996,233 995,266",t:"C8A · PV",x:940,y:226},
+      {p:"897,352 1022,303 1026,313 900,362",t:"C8B · CF",x:962,y:378,below:true}
+    ]
+  };
+  var NS="http://www.w3.org/2000/svg";
+  document.querySelectorAll(".map[data-map]").forEach(function(box){
+    var spec=MAPS[box.dataset.map]; if(!spec) return;
+    var h='<svg viewBox="0 10 1074 440" role="img" aria-label="Mapa del viñedo con '+spec.map(function(s){return s.t}).join(", ")+' destacado"><image class="base" href="img/doc-image4.webp" x="0" y="0" width="1074" height="455"/>';
+    spec.forEach(function(s){ h+='<polygon class="hl" points="'+s.p+'"/>'; });
+    spec.forEach(function(s){
+      var w=s.t.length*8.6+18, y=s.below? s.y : s.y-22;
+      var x=Math.min(Math.max(s.x-w/2,4),1070-w);
+      h+='<g class="tag"><rect x="'+x+'" y="'+y+'" width="'+w+'" height="22" rx="2"/><text x="'+(x+w/2)+'" y="'+(y+15.5)+'" text-anchor="middle">'+s.t+'</text></g>';
+    });
+    box.innerHTML=h+'</svg>';
+  });
+
+  /* ---------- QR de la ficha ---------- */
+  try{
+    if(window.QRCode){ new QRCode(document.getElementById("qr"),{text:new URL("../ficha/",location.href).href,width:360,height:360,colorDark:"#2a1838",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M}); }
+  }catch(e){}
+
+  try{ if(window.QRCode){ new QRCode(document.getElementById("qrweb"),{text:"https://vallesecreto.cl",width:320,height:320,colorDark:"#120f0d",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M}); } }catch(e){}
+
+  /* ---------- Viaje en el tiempo: 37 fotos, 2,4 s cada una (≈ 1:29 min) ---------- */
+  var nums=[1,2,11,12,14,16,17,20,22,23,24,26,28,30,31,33,36,38,40,42,43,44,45,46,47,48,49,50,52,53,55,56,58,59,60,63,64];
+  var show=document.getElementById("show"), blur=document.getElementById("showBlur");
+  var figs=nums.map(function(n,i){
+    var f=document.createElement("figure"); var im=document.createElement("img");
+    im.alt="Fotografía "+(i+1)+" del recorrido de Valle Secreto"; im.decoding="async";
+    if(i<3) im.src="img/4-"+n+".webp"; else im.dataset.src="img/4-"+n+".webp";
+    f.appendChild(im); show.appendChild(f); return f;
+  });
+  var total=figs.length, cur=0, timer=null, STEP=2400;
+  var vcount=document.getElementById("vcount"), vfill=document.getElementById("vfill"), vplay=document.getElementById("vplay");
+  vcount.innerHTML='1 <small>/ '+total+'</small>';
+  function load(i){ var im=figs[i]&&figs[i].firstChild; if(im&&im.dataset.src){ im.src=im.dataset.src; delete im.dataset.src; } }
+  function go(i){
+    cur=(i+total)%total;
+    figs.forEach(function(f,k){ f.classList.toggle("on",k===cur); });
+    for(var k=1;k<=3;k++) load(cur+k<total?cur+k:cur+k-total);
+    load(cur);
+    blur.style.backgroundImage='url("'+(figs[cur].firstChild.getAttribute("src"))+'")';
+    vcount.innerHTML=(cur+1)+' <small>/ '+total+'</small>';
+    vfill.style.width=((cur+1)/total*100)+"%";
+  }
+  function play(){ if(timer) return; vplay.dataset.playing="true";
+    timer=setInterval(function(){ if(cur>=total-1){ pause(); return; } go(cur+1); },STEP); }
+  function pause(){ clearInterval(timer); timer=null; vplay.dataset.playing="false"; }
+  vplay.onclick=function(){ if(timer) pause(); else { if(cur>=total-1) go(0); play(); } };
+  document.getElementById("vnext").onclick=function(){ pause(); go(cur+1); };
+  document.getElementById("vprev").onclick=function(){ pause(); go(cur-1); };
+  document.getElementById("vrestart").onclick=function(){ go(0); pause(); play(); };
+  go(0);
+  var viaje=document.getElementById("viaje");
+
+  /* ---------- Navegación entre secciones ---------- */
+  var secs=[].slice.call(document.querySelectorAll("section.s"));
+  var dots=document.getElementById("dots"), hudn=document.getElementById("hudn");
+  secs.forEach(function(s,i){
+    var li=document.createElement("li"); li.innerHTML='<a href="#'+s.id+'"><span>'+s.dataset.label+'</span><i></i></a>'; dots.appendChild(li);
+  });
+  var links=dots.querySelectorAll("a"), active=0;
+  function setActive(i){
+    if(i===active && links[i].classList.contains("on")) return;
+    active=i; links.forEach(function(a,k){ a.classList.toggle("on",k===i); if(k===i) a.setAttribute("aria-current","true"); else a.removeAttribute("aria-current"); });
+    hudn.innerHTML=(i+1)+' <small>/ '+secs.length+'</small>';
+    if(secs[i]===viaje){ if(!timer && cur===0) play(); } else pause();
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ setActive(secs.indexOf(e.target)); } });
+  },{rootMargin:"-45% 0px -45% 0px"});
+  secs.forEach(function(s){ io.observe(s); });
+  setActive(0);
+  function to(i){ i=Math.max(0,Math.min(secs.length-1,i)); secs[i].scrollIntoView({behavior:"smooth",block:"start"}); }
+  document.addEventListener("keydown",function(e){
+    if(e.target.closest && e.target.closest("input,textarea")) return;
+    var k=e.key;
+    if(k==="ArrowDown"||k==="PageDown"||k==="ArrowRight"||(k===" "&&!e.shiftKey)){ e.preventDefault(); to(active+1); }
+    else if(k==="ArrowUp"||k==="PageUp"||k==="ArrowLeft"||(k===" "&&e.shiftKey)){ e.preventDefault(); to(active-1); }
+    else if(k==="Home"){ e.preventDefault(); to(0); }
+    else if(k==="End"){ e.preventDefault(); to(secs.length-1); }
+  });
+  document.getElementById("fs").onclick=function(){
+    try{
+      if(document.fullscreenElement) document.exitFullscreen();
+      else { var p=document.documentElement.requestFullscreen(); if(p&&p.catch) p.catch(function(){}); }
+    }catch(e){}
+  };
+})();
+</script>
+
+</body>
+</html>
