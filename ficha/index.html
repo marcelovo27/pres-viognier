@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Private Viognier 2025</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: "la botella como pieza de exhibición". La botella queda fija, a tamaño completo, en su propio escenario (columna izquierda) mientras el contenido corre a la derecha. No se achica ni se va: cambia con cada sección (se inclina, cambia la luz de fondo y aparecen anotaciones sobre ella). Al final se le suman dos botellas. En móvil queda de fondo, tras paneles translúcidos. */
+:root{
+  --paper:#ffffff; --mist:#f7f5f8; --line:#e5e1e8;
+  --plum:#522d6d; --plum-2:#6e4a8a; --plum-tint:#f1ecf5;
+  --stone:#5e5e5e; --stone-2:#8a8690;
+  --gold:#bd9e56; --gold-tint:#f7f1e3;
+  --f-display:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;
+  --f-body:"Jost","Futura","Century Gothic",system-ui,sans-serif;
+  --gut:clamp(20px,4.5vw,72px);
+  --night:#522d6d; --night-2:#2f1842; --beige:#f3ebdc;
+  --grad-light:linear-gradient(170deg,#ffffff 0%,#fbf8f2 45%,var(--beige) 100%);
+  --grad-dark:linear-gradient(170deg,var(--night) 0%,#432458 50%,var(--night-2) 100%);
+  color-scheme:light;
+}
+/* Secciones oscuras: los mismos tokens, invertidos sobre el ciruela Private */
+.dark,.stage[data-s="proceso"],.stage[data-s="quiz"],.mbar[data-s="proceso"],.mbar[data-s="quiz"]{
+  --paper:#4a2863; --mist:#46265c; --line:rgba(255,255,255,.16);
+  --plum:#ffffff; --plum-2:#f1ecf5; --plum-tint:#5f3a7b;
+  --stone:#ffffff; --stone-2:rgba(255,255,255,.82);
+  --gold-tint:rgba(189,158,86,.2);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--stone);font-family:var(--f-body);font-weight:300;font-size:16px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Estructura ---------- */
+.page{display:grid;grid-template-columns:minmax(0,42fr) minmax(0,58fr)}
+.stage{position:relative}
+.stage-in{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;border-right:1px solid var(--line);background-color:#fff;background-image:linear-gradient(180deg,rgba(243,235,220,0) 0%,rgba(243,235,220,.5) 55%,var(--beige) 100%);transition:background-color .9s ease}
+.stage[data-s="proceso"] .stage-in,.stage[data-s="quiz"] .stage-in{background-color:var(--night);background-image:linear-gradient(180deg,rgba(47,24,66,0) 0%,rgba(47,24,66,.55) 55%,var(--night-2) 100%)}
+.content{min-width:0;padding-right:max(0px,env(safe-area-inset-right,0px))}
+
+/* ---------- Escenario ---------- */
+.halo{position:absolute;inset:0;pointer-events:none;transition:opacity 1.2s ease;opacity:var(--ho,.9);
+  background:radial-gradient(38% 46% at 50% 55%,var(--hc,var(--gold-tint)) 0%,transparent 72%)}
+.stage-in{--bh:min(80svh,780px)}
+.pvtmark{position:absolute;left:50%;top:50%;width:calc(var(--bh) * .81);transform:translate(-50%,-70%) scale(var(--ms,1));
+  opacity:var(--mo,.3);transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1),filter .9s;pointer-events:none;user-select:none}
+.stage[data-s="proceso"] .pvtmark,.stage[data-s="quiz"] .pvtmark{filter:brightness(0) invert(1)}
+.pvtmark img{display:block;width:100%;max-width:none}
+.bwrap{position:relative;height:var(--bh);aspect-ratio:595/1986;max-width:100%;
+  transform:rotate(var(--tilt,0deg)) translateY(var(--lift,0%));transition:transform 1.3s cubic-bezier(.2,.7,.2,1)}
+.bottle,.side{position:absolute;inset:0}
+.bottle{z-index:3}
+.float{position:relative;width:100%;height:100%;animation:float 7s ease-in-out infinite alternate}
+.float img{display:block;width:100%;height:100%;max-width:none;object-fit:contain;filter:drop-shadow(0 26px 30px rgba(82,45,109,.22))}
+.gloss{position:absolute;inset:0;-webkit-mask:url(bottle.webp) center/contain no-repeat;mask:url(bottle.webp) center/contain no-repeat;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,250,235,.5) 47%,transparent 58%);
+  background-size:300% 100%;animation:sweep 6.5s ease-in-out infinite;mix-blend-mode:screen}
+.shadow{position:absolute;left:50%;bottom:-28px;width:150%;height:16px;transform:translateX(-50%);
+  border-radius:50%;background:radial-gradient(closest-side,rgba(82,45,109,.3),transparent);animation:shadow 7s ease-in-out infinite alternate}
+@keyframes float{0%{transform:translateY(-1.5%) rotate(-1deg)}100%{transform:translateY(1.5%) rotate(1deg)}}
+@keyframes shadow{0%{transform:translateX(-50%) scale(.85);opacity:.6}100%{transform:translateX(-50%) scale(1.03);opacity:.9}}
+@keyframes sweep{0%{background-position:120% 0}55%,100%{background-position:-60% 0}}
+.side{z-index:2;opacity:0;transform:translateX(0) scale(.86);transform-origin:50% 100%;transition:opacity .9s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.side img{filter:saturate(.7) brightness(1.05) drop-shadow(0 20px 24px rgba(82,45,109,.16))}
+.side.r .float{animation-delay:-3s;animation-direction:alternate-reverse}
+
+
+/* Anotaciones sobre la botella */
+.co{position:absolute;top:var(--y);z-index:5;display:flex;align-items:center;opacity:0;pointer-events:none;
+  transition:opacity .6s ease .35s,transform .7s cubic-bezier(.2,.7,.2,1) .35s}
+.co.rt{left:var(--x,62%);transform:translateX(-10px)}
+.co.lt{right:calc(100% - var(--x,38%));flex-direction:row-reverse;transform:translateX(10px)}
+.co i{flex:none;width:11px;height:11px;margin:-5.5px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(189,158,86,.25);position:relative;z-index:1}
+.co::before{content:"";order:1;flex:none;width:clamp(36px,4vw,64px);height:1px;background:var(--gold)}
+.co.rt::before{order:1} .co.rt span{order:2}
+.co span{order:2;width:160px;padding:8px 0 8px 12px;font-size:.72rem;line-height:1.45;color:var(--stone)}
+.co.lt span{padding:8px 12px 8px 0;text-align:right}
+.co b{display:block;font-family:var(--f-display);font-weight:600;font-size:1.45rem;line-height:1.05;color:var(--plum)}
+[data-s="analisis"] .co[data-for="analisis"],[data-s="proceso"] .co[data-for="proceso"],
+[data-s="cata"] .co[data-for="cata"],[data-s="quiz"] .co[data-for="quiz"],[data-s="maridaje"] .co[data-for="maridaje"]{opacity:1;transform:none}
+
+/* Estados del escenario */
+[data-s="inicio"]{--mo:.3;--ms:1;--tilt:-2deg;--hc:var(--gold-tint);--ho:.9}
+[data-s="analisis"]{--mo:.12;--ms:1.08;--tilt:0deg;--hc:var(--plum-tint);--ho:1}
+[data-s="proceso"]{--mo:.1;--ms:1.08;--tilt:3deg;--hc:rgba(189,158,86,.32);--ho:1}
+[data-s="cata"]{--mo:.12;--ms:1.08;--tilt:-3deg;--hc:#efdcab;--ho:1}
+[data-s="quiz"]{--mo:.1;--ms:1.08;--tilt:2deg;--hc:rgba(189,158,86,.28);--ho:1}
+[data-s="maridaje"]{--mo:.12;--ms:1.08;--tilt:0deg;--hc:var(--gold-tint);--ho:.9}
+[data-s="final"]{--mo:.2;--ms:1;--tilt:0deg;--hc:var(--gold-tint);--ho:1;--lift:2%}
+
+/* Índice de secciones */
+.index{position:absolute;left:max(24px,env(safe-area-inset-left,0px));bottom:28px;z-index:6;display:grid;gap:2px;margin:0;padding:0;list-style:none}
+.index a{display:flex;align-items:center;gap:10px;padding:3px 0;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--stone-2);text-decoration:none;font-weight:500;transition:color .3s}
+.index a::before{content:"";width:14px;height:1px;background:currentColor;transition:width .4s}
+.index a:hover{color:var(--plum)}
+.index a.on{color:var(--plum)} .index a.on::before{width:30px;background:var(--gold)}
+.index{transition:opacity .6s}
+/* Selector de idioma */
+.lang{position:fixed;z-index:40;top:calc(14px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));display:flex;
+  background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid #e5e1e8}
+.lang button{background:none;border:0;cursor:pointer;padding:7px 10px;font-size:.62rem;letter-spacing:.16em;font-weight:500;color:#8a8690;transition:color .25s,background .25s}
+.lang button+button{border-left:1px solid #e5e1e8}
+.lang button:hover{color:#522d6d}
+.lang button[aria-pressed="true"]{color:#522d6d;background:#f7f1e3;font-weight:600}
+@media (max-width:900px){.lang{top:calc(7px + env(safe-area-inset-top,0px));right:max(8px,env(safe-area-inset-right,0px))}.lang button{padding:7px 8px}.mbar ul{padding-right:118px}}
+/* Menú del inicio, solo en móvil */
+.mnav{display:none}
+/* En móvil: lista pequeña al costado inferior derecho de la botella */
+.mnav{position:absolute;z-index:2;top:calc(5svh + 62svh + env(safe-area-inset-top,0px));transform:translateY(-100%);
+  right:max(8px,env(safe-area-inset-right,0px))}
+.mnav ul{list-style:none;margin:0;padding:0;display:grid;gap:2px;justify-items:start}
+.mnav a{display:flex;align-items:center;gap:6px;padding:5px 0;white-space:nowrap;font-size:.54rem;line-height:1.2;letter-spacing:.1em;text-transform:uppercase;color:var(--stone-2);text-decoration:none;font-weight:500}
+.mnav a::before{content:"";flex:none;width:10px;height:1px;background:var(--gold)}
+.mnav a:active,.mnav a:hover{color:var(--plum)}
+/* Barra fija en móvil: aparece al dejar atrás el menú del inicio */
+.mbar{display:none}
+@media (max-width:900px){
+  .mbar{display:block;position:fixed;top:0;left:0;right:0;z-index:30;
+    padding-top:env(safe-area-inset-top,0px);padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px));
+    background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+    transform:translateY(-105%);transition:transform .45s cubic-bezier(.2,.7,.2,1),background-color .6s}
+  .mbar.show{transform:none}
+  .mbar[data-s="proceso"],.mbar[data-s="quiz"]{background:rgba(82,45,109,.95)}
+  .mbar ul{list-style:none;margin:0;padding:0;display:flex;overflow-x:auto;scrollbar-width:none}
+  .mbar ul::-webkit-scrollbar{display:none}
+  .mbar a{display:block;white-space:nowrap;padding:15px 10px 13px;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+    color:var(--stone-2);text-decoration:none;border-bottom:2px solid transparent;transition:color .3s,border-color .3s}
+  .mbar a.on{color:var(--plum);border-color:var(--gold)}
+}
+@media (prefers-reduced-motion:reduce){.mbar{transition:none}}
+[data-s="final"] .index{opacity:0;pointer-events:none}
+
+/* ---------- Contenido ---------- */
+.panel{padding-block:clamp(72px,12vh,130px);padding-left:var(--gut);padding-right:max(var(--gut),env(safe-area-inset-right,0px));
+  border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,820px);gap:34px;align-content:start;min-width:0;background:var(--grad-light)}
+.panel.dark{background:var(--grad-dark);color:var(--stone)}
+.dark .eyebrow{color:var(--gold)}
+.dark .h2{color:#fff}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--plum);font-weight:500}
+.eyebrow::after{content:"";flex:1;max-width:110px;height:1px;background:var(--gold)}
+.h2{font-family:var(--f-display);font-weight:600;line-height:.92;font-size:clamp(3.2rem,6.4vw,6.6rem);color:var(--plum);letter-spacing:-.01em}
+.h2 em{font-style:italic;color:var(--gold);font-weight:500}
+
+/* Inicio */
+.intro{position:relative;min-height:100vh;min-height:100svh;align-content:center;gap:30px}
+.vsmark{width:clamp(88px,8vw,112px)}
+.vsmark img{display:block;width:100%}
+.logo{width:min(100%,520px)}
+.logo img{display:block;width:100%}
+.varietal{display:grid;gap:8px}
+.varietal .v{font-family:var(--f-display);font-weight:600;font-size:clamp(1.7rem,3vw,2.6rem);letter-spacing:.32em;line-height:1;color:var(--plum)}
+.varietal .v span{color:var(--stone)}
+.varietal .o{font-family:var(--f-display);font-weight:600;font-size:clamp(.9rem,1.2vw,1.05rem);letter-spacing:.24em;color:var(--stone)}
+.lede{max-width:56ch;font-size:1rem;margin:0}
+.lede b{color:var(--plum);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--line);padding:7px 14px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);background:var(--paper);font-weight:500}
+.chip.solid{background:var(--plum);border-color:var(--plum);color:var(--paper)}
+.chip.gold{border-color:var(--gold);color:var(--plum)}
+.cue{display:flex;align-items:center;gap:12px;color:var(--stone-2);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500}
+.cue i{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:cue 2.2s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+/* Análisis */
+.grape{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.grape div{background:var(--paper);padding:20px 22px;min-width:0}
+.grape small{display:block;font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--stone-2);font-weight:500}
+.grape strong{font-family:var(--f-display);font-weight:600;font-size:1.8rem;color:var(--plum);line-height:1.15}
+.meters{display:grid;gap:30px}
+.meter{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:6px 20px}
+.meter .lbl{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.meter .val{font-family:var(--f-display);font-weight:600;font-size:clamp(2.6rem,4.4vw,3.6rem);line-height:.9;color:var(--plum);font-variant-numeric:tabular-nums;text-align:right;grid-row:span 2}
+.meter .val small{font-family:var(--f-body);font-size:.78rem;font-weight:400;color:var(--stone-2);margin-left:4px}
+.track{position:relative;height:2px;background:var(--line);margin-top:22px}
+.track .fill{position:absolute;inset:0 auto 0 0;width:var(--p);background:linear-gradient(90deg,var(--plum),var(--gold));transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.track .pin{position:absolute;top:50%;left:var(--p);width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(189,158,86,.18);transition:left 1.4s cubic-bezier(.2,.7,.2,1)}
+.scale{display:flex;justify-content:space-between;gap:8px;font-size:.64rem;color:var(--stone-2);letter-spacing:.04em;margin-top:8px;grid-column:1}
+.armed .fill{width:0} .armed .pin{left:0}
+
+/* "¿Qué significa?": desplegable bajo cada medidor */
+.more{grid-column:1/-1;margin-top:4px}
+.more summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;padding:6px 0;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--plum);font-weight:500}
+.more summary::-webkit-details-marker{display:none}
+.more summary .pm{position:relative;width:18px;height:18px;border:1px solid var(--gold);border-radius:50%}
+.more summary .pm::before,.more summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:1px;background:var(--gold);transform:translate(-50%,-50%);transition:transform .3s}
+.more summary .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.more[open] summary .pm::after{transform:translate(-50%,-50%) rotate(0deg)}
+.more summary:hover{color:var(--gold)}
+.more .body{display:grid;gap:18px;padding:14px 0 8px;animation:rise .4s ease both}
+.qa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.qa div{background:var(--paper);padding:16px 18px;min-width:0}
+.qa small{display:block;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px}
+.qa p{margin:0;font-size:.9rem;line-height:1.55}
+.qa p b{color:var(--plum);font-weight:500}
+.viz{display:grid;gap:10px;padding:16px 18px;background:var(--mist);border:1px solid var(--line)}
+.viz .cap{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone-2);font-weight:500}
+.viz .note{margin:0;font-size:.82rem;color:var(--stone)}
+.viz .note b{color:var(--plum);font-weight:500}
+/* Alcohol: flujo de la fermentación */
+.flow3{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.flow3 span{border:1px solid var(--gold);background:var(--paper);padding:7px 12px;font-size:.8rem;color:var(--plum);font-weight:500}
+.flow3 i{font-style:normal;color:var(--gold);font-size:1.1rem}
+/* Acidez: balanza */
+.balance{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:10px;text-align:center}
+.balance .pan{display:grid;gap:4px;padding:10px;border-top:2px solid var(--plum);font-size:.8rem}
+.balance .pan b{font-family:var(--f-display);font-weight:600;font-size:1.5rem;color:var(--plum);line-height:1}
+.balance .pivot{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:18px solid var(--gold);margin-bottom:-2px}
+/* pH: escala con referencias */
+.phs{position:relative;height:74px;margin:0 6px}
+.phs .rail{position:absolute;left:0;right:0;top:36px;height:2px;background:var(--line)}
+.phs .zone{position:absolute;top:31px;height:12px;left:20%;width:20%;background:var(--gold-tint);border:1px solid var(--gold)}
+.phs .pt{position:absolute;transform:translateX(-50%);display:grid;justify-items:center;font-size:.66rem;line-height:1.2;color:var(--stone);white-space:nowrap;text-align:center}
+.phs .pt::after{content:"";order:-1;width:7px;height:7px;border-radius:50%;background:var(--stone-2)}
+.phs .pt.dn{top:33px} .phs .pt.dn::after{order:-1}
+.phs .pt.up{bottom:38px;top:auto} .phs .pt.up::after{order:2}
+.phs .pt.me{color:var(--plum);font-weight:600} .phs .pt.me::after{background:var(--gold);width:11px;height:11px}
+.sweet{display:grid;gap:10px;padding-top:30px}
+.zones{position:relative;height:8px;background:var(--line)}
+.zones .dry{position:absolute;inset:0 auto 0 0;width:calc(4/16*100%);background:var(--gold)}
+.zones .bal{position:absolute;inset:0 auto 0 calc(4/16*100%);width:calc(5/16*100%);background:repeating-linear-gradient(135deg,var(--gold) 0 4px,var(--gold-tint) 4px 8px)}
+.zones .mark{position:absolute;bottom:14px;left:var(--m);transform:translateX(-50%);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);font-weight:600;white-space:nowrap;transition:left 1.4s cubic-bezier(.2,.7,.2,1)}
+.zones .mark::after{content:"";display:block;width:1px;height:10px;background:var(--plum);margin:3px auto 0}
+.zticks{position:relative;height:16px;font-size:.62rem;color:var(--stone-2);font-variant-numeric:tabular-nums}
+.zticks span{position:absolute;transform:translateX(-50%)}
+.zticks span:first-child{transform:none} .zticks span:last-child{transform:translateX(-100%)}
+.zkey{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.72rem}
+.zkey span{display:flex;align-items:center;gap:8px}
+.zkey i{width:18px;height:8px;background:var(--gold)}
+.zkey i.b{background:repeating-linear-gradient(135deg,var(--gold) 0 4px,var(--gold-tint) 4px 8px)}
+.zkey i.s{background:var(--line)}
+.armed .mark{left:0}
+
+/* Proceso */
+.sub{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--plum);font-weight:500;margin-top:10px}
+.field{display:grid;grid-template-columns:minmax(0,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.field div{background:var(--paper);padding:24px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;align-items:start;min-width:0}
+.field svg{grid-row:span 2;width:40px;height:40px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.field h3{font-family:var(--f-display);font-weight:600;font-size:1.6rem;color:var(--plum);line-height:1.1}
+.field p{margin:0}
+.split{display:grid;gap:14px}
+.bar{display:grid;grid-template-columns:20fr 80fr;height:64px;border:1px solid var(--line)}
+.bar div{display:flex;align-items:center;padding:0 14px;gap:10px;min-width:0;overflow:hidden;white-space:nowrap;font-size:.8rem;font-weight:500}
+.bar .oak{background:var(--gold);color:var(--paper)}
+.bar .steel{background:repeating-linear-gradient(135deg,var(--plum-tint) 0 8px,var(--paper) 8px 16px);color:var(--plum)}
+.bar b{font-family:var(--f-display);font-weight:700;font-size:2rem;line-height:1}
+.legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.legend div{display:grid;gap:4px;border-left:3px solid var(--gold);padding-left:14px;min-width:0}
+.legend div+div{border-color:var(--plum)}
+.legend strong{font-weight:500;color:var(--plum)}
+.legend span{font-size:.86rem}
+.legend em{font-style:normal;font-family:var(--f-display);font-weight:600;font-size:1.5rem;color:var(--plum);font-variant-numeric:tabular-nums}
+.steps{list-style:none;margin:0;padding:0;display:grid;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:60px minmax(0,1fr);gap:4px 16px;padding:22px 0;border-top:1px solid var(--line)}
+.steps li:last-child{border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(s,decimal-leading-zero);grid-row:span 2;font-family:var(--f-display);font-weight:600;font-size:2.4rem;line-height:.9;color:var(--gold)}
+.steps h4{font-family:var(--f-display);font-weight:600;font-size:1.55rem;color:var(--plum);line-height:1.1}
+.steps p{margin:0;max-width:62ch}
+.steps p b{color:var(--plum);font-weight:500}
+
+/* Nota de cata */
+.tabs{display:flex;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tab{background:none;border:0;padding:12px 22px 14px;cursor:pointer;font-family:var(--f-display);font-weight:600;font-size:1.7rem;color:var(--stone-2);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--plum);border-color:var(--gold)}
+.tab:hover{color:var(--plum)}
+.tabpanel{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:start;max-width:62ch;padding-top:6px}
+.tabpanel svg{width:54px;height:54px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.tabpanel p{margin:0;font-size:1.05rem}
+.tabpanel p b{color:var(--plum);font-weight:500}
+
+/* Quiz */
+.quiz{background:var(--paper);border:1px solid var(--line);padding:clamp(22px,4vw,44px);display:grid;gap:26px;position:relative;overflow:hidden}
+.quiz::before{content:"?";position:absolute;right:0;top:-70px;font-family:var(--f-display);font-weight:600;font-style:italic;font-size:22rem;line-height:1;color:var(--plum-tint);pointer-events:none}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;position:relative}
+.qcount{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--plum);font-weight:500}
+.qscore{font-size:.76rem;color:var(--stone-2);font-variant-numeric:tabular-nums}
+.qscore b{color:var(--plum);font-weight:600}
+.segs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;position:relative}
+.segs i{height:3px;background:var(--line);transition:background .4s}
+.segs i.cur{background:var(--plum)} .segs i.ok{background:var(--gold)} .segs i.bad{background:var(--stone)}
+.qtitle{font-family:var(--f-display);font-weight:600;font-size:clamp(2rem,3.8vw,3.3rem);line-height:1;color:var(--plum);position:relative}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;position:relative}
+.opt{text-align:left;background:var(--paper);border:1px solid var(--line);padding:16px 18px;cursor:pointer;display:flex;gap:14px;align-items:center;transition:border-color .25s,transform .25s,background .25s;min-height:70px}
+.opt:hover:not(:disabled){border-color:var(--plum);transform:translateY(-2px)}
+.opt .k{flex:none;width:30px;height:30px;border:1px solid var(--line);display:grid;place-items:center;font-size:.76rem;color:var(--stone-2);font-weight:500}
+.opt .t{font-size:.94rem;line-height:1.35;color:var(--stone)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--gold);background:var(--gold-tint)} .opt.right .k{border-color:var(--gold);background:var(--gold);color:var(--paper)}
+.opt.right .t{color:var(--plum);font-weight:500}
+.opt.wrong{border-color:var(--stone);background:var(--mist);animation:shake .4s} .opt.wrong .k{border-color:var(--stone);background:var(--stone);color:var(--paper)}
+.opt.wrong .t{text-decoration:line-through;text-decoration-color:var(--stone-2)}
+.opt.dim{opacity:.45}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+.fb{border-left:3px solid var(--gold);padding:4px 0 4px 18px;display:grid;gap:6px;position:relative;animation:rise .45s ease both}
+.fb.no{border-color:var(--stone)}
+.fb h4{font-family:var(--f-display);font-size:1.8rem;font-weight:600;color:var(--plum)}
+.fb.no h4{color:var(--stone)}
+.fb p{margin:0;max-width:60ch}
+.fb p b{color:var(--plum);font-weight:500}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.btn{justify-self:start;background:var(--plum);color:var(--paper);border:0;padding:14px 26px;cursor:pointer;font-weight:500;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;transition:background .25s;position:relative;text-decoration:none}
+.btn:hover{background:var(--plum-2)}
+.btn.ghost{background:none;color:var(--plum);border:1px solid var(--gold)}
+.btn.ghost:hover{background:var(--gold-tint)}
+.final{display:grid;gap:18px;position:relative;animation:rise .5s ease both}
+.final .big{font-family:var(--f-display);font-weight:600;font-size:clamp(6rem,12vw,9rem);line-height:.8;color:var(--gold)}
+.final .big small{font-size:.35em;color:var(--stone-2)}
+.final h3{font-family:var(--f-display);font-weight:600;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1;color:var(--plum)}
+.final .row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Maridaje */
+.slider{display:grid;gap:22px;min-width:0}
+.pairs{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;outline:none}
+.pairs::-webkit-scrollbar{display:none}
+.pair{flex:0 0 calc((100% - 36px)/3);scroll-snap-align:start;display:grid;gap:12px;align-content:start;min-width:0}
+.ph{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line);display:grid;place-items:center;align-content:center;gap:12px;
+  background:radial-gradient(70% 60% at 50% 40%,var(--gold-tint),var(--paper))}
+.ph svg{width:72px;height:72px;stroke:var(--plum);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.ph em{font-style:normal;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--stone-2);font-weight:500}
+.pair h3{font-family:var(--f-display);font-weight:600;font-size:1.8rem;line-height:1.05;color:var(--plum)}
+.pair p{margin:0;font-size:.9rem;max-width:42ch}
+.sctrl{display:flex;align-items:center;gap:18px}
+.scount{font-family:var(--f-display);font-weight:600;font-size:1.5rem;color:var(--plum);font-variant-numeric:tabular-nums;white-space:nowrap}
+.scount small{font-size:.75em;color:var(--stone-2)}
+.sbar{flex:1;height:2px;background:var(--line);position:relative;overflow:hidden}
+.sbar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold)}
+.sbar i.run{animation:fillbar var(--dur,5s) linear forwards}
+@keyframes fillbar{to{width:100%}}
+.sarrows{display:flex;gap:8px}
+.sarrows button{width:48px;height:48px;border:1px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center;transition:border-color .25s}
+.sarrows button:hover{border-color:var(--plum)}
+.sarrows svg{width:20px;height:20px;stroke:var(--plum);fill:none;stroke-width:1.5}
+
+/* Cierre */
+.closing{min-height:70vh;min-height:70svh;align-content:center}
+/* Inicio: logo + edición limitada */
+.logorow{display:flex;flex-wrap:wrap;align-items:center;gap:20px 34px}
+.logorow .logo{flex:1 1 280px;max-width:460px}
+.ed{display:grid;gap:4px;border-left:1px solid var(--gold);padding-left:24px}
+.ed b{font-family:var(--f-display);font-weight:600;font-size:clamp(3.6rem,6vw,5.4rem);line-height:.85;color:var(--plum);font-variant-numeric:lining-nums;letter-spacing:-.01em}
+.ed span{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(1.25rem,1.8vw,1.6rem);line-height:1.1;color:var(--gold)}
+/* Viñedo: cifras */
+.vstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.vstats div{background:var(--paper);padding:20px 22px;display:grid;gap:4px;align-content:start;min-width:0}
+.vstats b{font-family:var(--f-display);font-weight:600;font-size:clamp(1.9rem,3vw,2.5rem);line-height:1;color:var(--plum);font-variant-numeric:lining-nums}
+.vstats small{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.vstats span{font-size:.86rem}
+/* Proceso: tres lugares */
+.places{display:grid;gap:clamp(48px,8vh,80px)}
+.place{display:grid;gap:22px;padding-top:28px;border-top:1px solid var(--gold);min-width:0}
+.phead{display:flex;align-items:center;gap:18px}
+.pic{flex:none;width:58px;height:58px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center}
+.pic svg{width:28px;height:28px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.ptitle{font-family:var(--f-display);font-weight:600;font-size:clamp(2.3rem,4.2vw,3.4rem);line-height:1;color:var(--plum)}
+.pdesc{margin:6px 0 0;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.edition{font-family:var(--f-display);font-weight:500;font-size:clamp(4.4rem,9vw,8rem);line-height:.85;color:var(--plum);font-variant-numeric:lining-nums}
+.edition small{display:block;font-size:.26em;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-family:var(--f-body);font-weight:500;margin-bottom:14px}
+.edition em{font-style:italic;color:var(--gold);font-size:.6em}
+.spec{display:flex;gap:36px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:26px}
+.spec div small{display:block;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--stone-2);font-weight:500}
+.spec div b{font-family:var(--f-display);font-weight:600;font-size:2.1rem;color:var(--plum);font-variant-numeric:tabular-nums}
+.sign{display:flex;align-items:center;gap:18px;font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--stone-2);font-weight:500}
+.sign img{width:84px}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1240px){
+  /* sin espacio lateral: la anotación baja bajo la botella como leyenda */
+  .co.rt,.co.lt{left:50%;right:auto;top:auto;bottom:-14px;transform:translate(-50%,8px);flex-direction:column}
+  .co::before,.co i{display:none}
+  .co span,.co.lt span{width:240px;text-align:center;padding:0;background:var(--paper);padding:8px 12px;border:1px solid var(--line)}
+  [data-s] .co[data-for]{transform:translate(-50%,8px)}
+  [data-s="analisis"] .co[data-for="analisis"],[data-s="proceso"] .co[data-for="proceso"],
+  [data-s="cata"] .co[data-for="cata"],[data-s="quiz"] .co[data-for="quiz"],[data-s="maridaje"] .co[data-for="maridaje"]{transform:translate(-50%,0)}
+  .stage-in{--bh:min(72svh,700px)}
+}
+@media (max-width:900px){
+  .page{display:block}
+  .stage{position:fixed;inset:0;z-index:0}
+  .stage-in{position:absolute;inset:0;height:auto;border:0;place-items:start center;padding-top:calc(5svh + env(safe-area-inset-top,0px))}
+  .stage-in{--bh:62svh}
+  .pvtmark{top:36%}
+  .co,.index{display:none}
+  .mnav{display:block}
+  .content{position:relative;z-index:1;padding-right:0}
+  .panel{background:linear-gradient(170deg,rgba(255,255,255,.9) 0%,rgba(251,248,242,.9) 45%,rgba(243,235,220,.93) 100%);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+  .panel.dark{background:linear-gradient(170deg,rgba(82,45,109,.93) 0%,rgba(67,36,88,.94) 50%,rgba(47,24,66,.96) 100%)}
+  .intro{min-height:auto;padding-top:69svh;background:linear-gradient(rgba(255,255,255,0) 0,rgba(255,255,255,0) 64svh,var(--paper) 72svh);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .pair{flex-basis:56%}
+}
+@media (max-width:560px){
+  .opts,.grape,.legend,.qa,.vstats{grid-template-columns:minmax(0,1fr)}
+  .pic{width:48px;height:48px} .pic svg{width:24px;height:24px}
+  .pair{flex-basis:64%}
+  .sarrows button{width:44px;height:44px}
+  .tabpanel{grid-template-columns:minmax(0,1fr)}
+  .bar{height:56px} .bar b{font-size:1.5rem} .bar .oak span{display:none}
+  .steps li{grid-template-columns:42px minmax(0,1fr)} .steps li::before{font-size:1.8rem}
+  .varietal .v{letter-spacing:.12em}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .float,.shadow,.gloss,.cue i{animation:none}
+  .fill,.pin,.mark,.bwrap,.pvtmark,.side,.co{transition:none}
+  .pairs{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="lang" role="group" aria-label="Idioma" data-i18n-aria="lang" id="lang"><button type="button" data-l="es" aria-pressed="true">ES</button><button type="button" data-l="en" aria-pressed="false">EN</button><button type="button" data-l="pt" aria-pressed="false">PT</button></div>
+<nav aria-label="Secciones" data-i18n-aria="nav" class="mbar" data-s="inicio" id="mbar"><ul>
+<li><a data-i18n="t1" data-k="inicio" href="#inicio">Inicio</a></li>
+<li><a data-i18n="t2" data-k="analisis" href="#analisis">Ficha técnica</a></li>
+<li><a data-i18n="t3" data-k="proceso" href="#proceso">Proceso</a></li>
+<li><a data-i18n="t4" data-k="cata" href="#cata">Nota de cata</a></li>
+<li><a data-i18n="t5" data-k="quiz" href="#quiz">Quiz</a></li>
+<li><a data-i18n="t6" data-k="maridaje" href="#maridaje">Maridaje</a></li>
+</ul></nav>
+<div class="page">
+<!-- ESCENARIO: la botella siempre presente -->
+<aside class="stage" data-s="inicio" id="stage">
+<div class="stage-in">
+<div aria-hidden="true" class="halo"></div>
+<div aria-hidden="true" class="pvtmark"><img alt="" src="pvt.svg"/></div>
+<div class="bwrap">
+<div aria-label="Botella de Valle Secreto Private Viognier 2025, cápsula morada y etiqueta blanca" data-i18n-aria="bottle" class="bottle" role="img">
+<div class="float"><img alt="" src="bottle.webp"/><div aria-hidden="true" class="gloss"></div></div>
+<div aria-hidden="true" class="shadow"></div>
+</div>
+<div aria-hidden="true" class="co rt" data-for="analisis" style="--y:42%;--x:72%"><i></i><span data-i18n="t7"><b>14% vol</b>6 g/L de azúcar · pH 3,18</span></div>
+<div aria-hidden="true" class="co lt" data-for="proceso" style="--y:58%;--x:26%"><i></i><span data-i18n="t8"><b>20% en barrica</b>Roble francés de 500 L · 6 meses sobre lías</span></div>
+<div aria-hidden="true" class="co rt" data-for="cata" style="--y:30%;--x:68%"><i></i><span data-i18n="t9"><b>Amarillo dorado</b>Brillante y denso, con destellos dorados</span></div>
+<div aria-hidden="true" class="co rt" data-for="quiz" style="--y:90%;--x:72%"><i></i><span data-i18n="t10"><b>Botella numerada</b>Cada añada es una edición limitada</span></div>
+<div aria-hidden="true" class="co rt" data-for="maridaje" style="--y:14%;--x:66%"><i></i><span data-i18n="t11"><b>Cachapoal Andes</b>Un blanco para la mesa: pescados y salsas cremosas</span></div>
+</div>
+<nav aria-label="Secciones" data-i18n-aria="nav"><ul class="index" id="index">
+<li><a data-i18n="t12" data-k="inicio" href="#inicio">Inicio</a></li>
+<li><a data-i18n="t13" data-k="analisis" href="#analisis">Ficha técnica</a></li>
+<li><a data-i18n="t14" data-k="proceso" href="#proceso">Proceso</a></li>
+<li><a data-i18n="t15" data-k="cata" href="#cata">Nota de cata</a></li>
+<li><a data-i18n="t16" data-k="quiz" href="#quiz">Quiz</a></li>
+<li><a data-i18n="t17" data-k="maridaje" href="#maridaje">Maridaje</a></li>
+</ul></nav>
+</div>
+</aside>
+<main class="content">
+<!-- INICIO -->
+<header class="panel intro" data-k="inicio" id="inicio">
+<div class="vsmark"><img alt="Valle Secreto vineyards &amp; winery" src="vs.svg"/></div>
+<div class="eyebrow" data-i18n="t18">Vino de Chile · Cosecha 2025</div>
+<div class="logorow">
+<h1 class="logo"><img alt="Private" src="pvt.svg"/></h1>
+<div class="ed"><b data-i18n="t19">5.088</b><span data-i18n="t20">botellas numeradas</span></div>
+</div>
+<div class="varietal">
+<div class="v">VIOGNIER <span data-i18n="t21">2025</span></div>
+<div class="o" data-i18n="t22">CACHAPOAL ANDES · CHILE</div>
+</div>
+<p class="lede" data-i18n="t23">La línea <b>Private</b> nace en 2009 y reúne cinco vinos que expresan el terroir de Cachapoal Andes. Cada añada es una <b>edición limitada, con botellas numeradas</b>. Sus vinos presentan taninos frescos, delicados y finos aromas, y se guardan en barricas de roble francés.</p>
+<div class="chips">
+<span class="chip solid" data-i18n="t24">Blanco seco</span>
+<span class="chip" data-i18n="t25">Valle de Cachapoal</span>
+<span class="chip" data-i18n="t26">750 ml</span>
+<span class="chip" data-i18n="t27">14% vol</span>
+<span class="chip gold" data-i18n="t28">Edición numerada</span>
+</div>
+<nav aria-label="Secciones de la ficha" data-i18n-aria="mnav" class="mnav"><ul>
+<li><a data-i18n="t29" href="#analisis">Ficha técnica</a></li>
+<li><a data-i18n="t30" href="#proceso">Proceso</a></li>
+<li><a data-i18n="t31" href="#cata">Nota de cata</a></li>
+<li><a data-i18n="t32" href="#quiz">Quiz</a></li>
+<li><a data-i18n="t33" href="#maridaje">Maridaje</a></li>
+</ul></nav>
+<div class="cue"><i></i><span data-i18n="cue">Desliza para descubrirlo</span></div>
+</header>
+<!-- ANÁLISIS -->
+<section class="panel" data-k="analisis" id="analisis">
+<div class="eyebrow" data-i18n="t34">01 · Ficha técnica</div>
+<h2 class="h2" data-i18n="t35">Análisis<br/><em>técnico</em></h2>
+<div class="grape">
+<div><small data-i18n="t36">Cepa</small><strong data-i18n="t37">Viognier</strong></div>
+<div><small data-i18n="t38">Origen</small><strong data-i18n="t39">Cachapoal Andes</strong></div>
+<div><small data-i18n="t40">Estilo</small><strong data-i18n="t41">Blanco seco</strong></div>
+</div>
+<div class="meters armable">
+<div class="meter">
+<span class="lbl" data-i18n="t42">Alcohol</span>
+<span class="val">14<small data-i18n="t43">% vol</small></span>
+<div class="track" style="--p:70%"><span class="fill"></span><span class="pin"></span></div>
+<div class="scale"><span data-i18n="t44">0%</span><span data-i18n="t45">Blancos con cuerpo · 13–14,5%</span><span data-i18n="t46">20%</span></div>
+<details class="more"><summary><span aria-hidden="true" class="pm"></span><span data-i18n="more">¿Qué significa?</span></summary>
+<div class="body">
+<div class="qa">
+<div><small data-i18n="t47">Qué es</small><p data-i18n="t48">La parte del vino que es alcohol. Con 14%, una botella de 750 ml tiene unos <b>105 ml de alcohol</b>.</p></div>
+<div><small data-i18n="t49">Cómo se forma</small><p data-i18n="t50">En la fermentación, las levaduras transforman el azúcar de la uva en alcohol. Uva más madura, más azúcar y más alcohol.</p></div>
+<div><small data-i18n="t51">Qué aporta</small><p data-i18n="t52">Cuerpo, textura y una sensación de calidez. En este Viognier explica su <b>paso untuoso</b> y ayuda a llevar los aromas.</p></div>
+</div>
+<div class="viz">
+<span class="cap" data-i18n="t53">Así nace el alcohol</span>
+<div class="flow3"><span data-i18n="t54">Azúcar de la uva</span><i>→</i><span data-i18n="t55">Levaduras</span><i>→</i><span data-i18n="t56">Alcohol + gas carbónico</span></div>
+<p class="note" data-i18n="t57">Cada <b>17 g de azúcar</b> por litro dan cerca de <b>1% de alcohol</b>.</p>
+</div>
+</div>
+</details>
+</div>
+<div class="meter">
+<span class="lbl" data-i18n="t58">Acidez total</span>
+<span class="val">6,2<small data-i18n="t59">g/L</small></span>
+<div class="track" style="--p:55%"><span class="fill"></span><span class="pin"></span></div>
+<div class="scale"><span data-i18n="t60">Suave · 4</span><span data-i18n="t61">Fresco · 8 g/L</span></div>
+<details class="more"><summary><span aria-hidden="true" class="pm"></span><span data-i18n="more">¿Qué significa?</span></summary>
+<div class="body">
+<div class="qa">
+<div><small data-i18n="t62">Qué es</small><p data-i18n="t63">La cantidad total de ácidos naturales del vino, sobre todo <b>tartárico y málico</b>, que vienen de la uva.</p></div>
+<div><small data-i18n="t64">Cómo se forma</small><p data-i18n="t65">Nace en el viñedo. La uva pierde acidez a medida que madura; las noches frescas de la cordillera ayudan a conservarla.</p></div>
+<div><small data-i18n="t66">Qué aporta</small><p data-i18n="t67">Frescor y esa sensación de que la boca se hace agua. Con 6,2 g/L, el Private es <b>fresco sin ser punzante</b>.</p></div>
+</div>
+<div class="viz">
+<span class="cap" data-i18n="t68">La acidez equilibra el vino</span>
+<div class="balance">
+<div class="pan" data-i18n="t69"><b>6,2 g/L</b>Acidez · frescor</div>
+<div aria-hidden="true" class="pivot"></div>
+<div class="pan" data-i18n="t70"><b>14% · 6 g/L</b>Alcohol y azúcar · calidez y redondez</div>
+</div>
+<p class="note" data-i18n="t71">Sin acidez, el vino se siente plano y pesado; con demasiada, áspero.</p>
+</div>
+</div>
+</details>
+</div>
+<div class="meter">
+<span class="lbl" data-i18n="t72">pH</span>
+<span class="val" data-i18n="t73">3,18</span>
+<div class="track" style="--p:31.7%"><span class="fill"></span><span class="pin"></span></div>
+<div class="scale"><span data-i18n="t74">2,8 · más ácido</span><span data-i18n="t75">4,0 · menos ácido</span></div>
+<details class="more"><summary><span aria-hidden="true" class="pm"></span><span data-i18n="more">¿Qué significa?</span></summary>
+<div class="body">
+<div class="qa">
+<div><small data-i18n="t76">Qué es</small><p data-i18n="t77">Mide <b>qué tan intensa</b> es la acidez, no cuánta hay. Mientras más bajo el número, más ácido. Los vinos se mueven entre 3 y 4.</p></div>
+<div><small data-i18n="t78">Cómo se forma</small><p data-i18n="t79">Depende de los ácidos de la uva y de sus minerales, como el potasio, que lo hacen subir.</p></div>
+<div><small data-i18n="t80">Qué aporta</small><p data-i18n="t81">Protege al vino de bacterias y mantiene su color y frescura en el tiempo. Con 3,18 es un <b>vino estable y vivo</b>.</p></div>
+</div>
+<div class="viz">
+<span class="cap" data-i18n="t82">El pH del Private, comparado</span>
+<div data-i18n-aria="phs" aria-label="Escala de pH: limón 2,3; Private 3,18; café 5; agua 7. Los vinos están entre 3 y 4." class="phs" role="img">
+<div class="rail"></div><div class="zone"></div>
+<div class="pt dn" data-i18n="t83" style="left:6%">Limón<br/>2,3</div>
+<div class="pt up me" data-i18n="t84" style="left:23.6%">Private 3,18</div>
+<div class="pt dn" data-i18n="t85" style="left:30%">Vinos<br/>3 a 4</div>
+<div class="pt dn" data-i18n="t86" style="left:60%">Café<br/>5</div>
+<div class="pt dn" data-i18n="t87" style="left:100%;transform:translateX(-100%)">Agua<br/>7</div>
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="meter">
+<span class="lbl" data-i18n="t88">Azúcar residual</span>
+<span class="val">6,0<small data-i18n="t89">g/L</small></span>
+<div class="track" style="--p:50%"><span class="fill"></span><span class="pin"></span></div>
+<div class="scale"><span data-i18n="t90">0</span><span data-i18n="t91">12 g/L</span></div>
+<details class="more"><summary><span aria-hidden="true" class="pm"></span><span data-i18n="more">¿Qué significa?</span></summary>
+<div class="body">
+<div class="qa">
+<div><small data-i18n="t92">Qué es</small><p data-i18n="t93">El azúcar de la uva que quedó <b>sin transformarse en alcohol</b> al terminar la fermentación.</p></div>
+<div><small data-i18n="t94">Cómo se forma</small><p data-i18n="t95">Depende de cuándo terminan su trabajo las levaduras. En este vino transformaron casi todo el azúcar.</p></div>
+<div><small data-i18n="t96">Qué aporta</small><p data-i18n="t97">Algo de redondez. Su acidez de 6,2 g/L compensa el dulzor y el vino <b>se percibe seco</b>. Una copa de 150 ml tiene menos de 1 g de azúcar.</p></div>
+</div>
+<div class="viz">
+<span class="cap" data-i18n="t98">¿Seco o dulce?</span>
+<div class="sweet">
+<div class="zones" style="--m:calc(6/16*100%)"><span class="dry"></span><span class="bal"></span><div class="mark" data-i18n="t99">Private · 6,0</div></div>
+<div class="zticks"><span data-i18n="t100" style="left:0">0</span><span data-i18n="t101" style="left:25%">4</span><span data-i18n="t102" style="left:56.25%">9</span><span data-i18n="t103" style="left:100%">16 g/L</span></div>
+<div class="zkey">
+<span><i></i>Seco</span>
+<span><i class="b"></i>Seco si la acidez lo equilibra</span>
+<span><i class="s"></i>Semiseco y más dulce</span>
+</div>
+</div>
+<p class="note" data-i18n="t104">La norma internacional acepta como seco un vino de hasta 9 g/L cuando su acidez está a menos de 2 g del azúcar.</p>
+</div>
+</div>
+</details>
+</div>
+</div>
+</section>
+<!-- PROCESO -->
+<section class="panel dark" data-k="proceso" id="proceso">
+<div class="eyebrow" data-i18n="t105">02 · Del viñedo a la botella</div>
+<h2 class="h2" data-i18n="t106">Cómo se<br/><em>hace</em></h2>
+<div class="places">
+<div class="place">
+<div class="phead">
+<span aria-hidden="true" class="pic"><svg viewBox="0 0 28 28"><path d="M14 26V12M14 12c0-4 3-7 8-7 0 5-3 8-8 7zM14 15c0-3-2-6-7-6 0 4 3 7 7 6M10 20a2 2 0 1 0 .1 0M14 22a2 2 0 1 0 .1 0M18 20a2 2 0 1 0 .1 0"></path></svg></span>
+<div><h3 class="ptitle" data-i18n="t107">En el viñedo</h3><p class="pdesc" data-i18n="t108">Donde crece y se cosecha la uva</p></div>
+</div>
+<div class="vstats">
+<div><small data-i18n="t109">Conducción</small><b data-i18n="t110">Espaldera simple</b><span data-i18n="t111">Hileras con orientación norte-sur</span></div>
+<div><small data-i18n="t112">Densidad</small><b data-i18n="t113">4.200</b><span data-i18n="t114">plantas por hectárea</span></div>
+<div><small data-i18n="t115">Producción</small><b data-i18n="t116">1,5 a 2 kg</b><span data-i18n="t117">de uva por planta</span></div>
+</div>
+<div class="field">
+<div>
+<svg viewBox="0 0 40 40"><path d="M6 16h28l-3 18H9zM6 16l4-6h20l4 6M14 22v6M20 22v6M26 22v6"></path></svg>
+<h3 data-i18n="t118">Cosecha manual</h3>
+<p data-i18n="t119">La uva se corta a mano en gamelas de 10 kilos y se transporta hasta la bodega, donde comienza la vinificación.</p>
+</div>
+</div>
+</div>
+<div class="place">
+<div class="phead">
+<span aria-hidden="true" class="pic"><svg viewBox="0 0 28 28"><path d="M8 4h12c2 4 2 16 0 20H8C6 20 6 8 8 4zM6.6 9h14.8M6.6 19h14.8M14 4v20"></path></svg></span>
+<div><h3 class="ptitle" data-i18n="t120">En la bodega</h3><p class="pdesc" data-i18n="t121">Dónde fermenta el mosto</p></div>
+</div>
+<div class="split">
+<div aria-label="20% del mosto fermenta en barrica y 80% en acero inoxidable" data-i18n-aria="bar" class="bar" role="img">
+<div class="oak"><b data-i18n="t122">20%</b><span data-i18n="t123">Barrica</span></div>
+<div class="steel"><b data-i18n="t124">80%</b><span data-i18n="t125">Acero inoxidable</span></div>
+</div>
+<div class="legend">
+<div><strong data-i18n="t126">Barricas francesas de 500 L</strong><span data-i18n="t127">Tostado medio, de un uso</span><em data-i18n="t128">27 días de fermentación</em></div>
+<div><strong data-i18n="t129">Estanques de acero</strong><span data-i18n="t130">Gota y prensa en estanques separados</span><em data-i18n="t131">17 días de fermentación</em></div>
+</div>
+</div>
+</div>
+<div class="place">
+<div class="phead">
+<span aria-hidden="true" class="pic"><svg viewBox="0 0 28 28"><path d="M4 22h6v-5h6v-5h6V6M19 6h3v3"></path></svg></span>
+<div><h3 class="ptitle" data-i18n="t132">Paso a paso</h3><p class="pdesc" data-i18n="t133">El recorrido en la bodega, de la uva a la botella</p></div>
+</div>
+<ol class="steps">
+<li><h4 data-i18n="t134">Molienda y frío</h4><p data-i18n="t135">La uva se muele y el mosto reposa <b>24 horas en frío</b> en estanque.</p></li>
+<li><h4 data-i18n="t136">Descube</h4><p data-i18n="t137">Se separa la gota, el mosto que escurre solo, y el resto se prensa.</p></li>
+<li><h4 data-i18n="t138">Fermentación alcohólica</h4><p data-i18n="t139">El <b>20% de la gota</b> fermenta en barricas francesas de 500 litros. En los estanques se usa levadura y nutrición según lo que pida cada lote.</p></li>
+<li><h4 data-i18n="t140">Desborre y sulfitado</h4><p data-i18n="t141">Terminada la fermentación, el vino se limpia de sus borras y se sulfita en estanques de acero.</p></li>
+<li><h4 data-i18n="t142">Crianza sobre lías</h4><p data-i18n="t143">Tras un trasiego de ida y vuelta, el vino descansa <b>6 meses en barrica</b>. Una vez por semana se hace bastoneo: se remueven las lías para dar volumen y textura.</p></li>
+<li><h4 data-i18n="t144">Mezcla y estabilización</h4><p data-i18n="t145">Se unen los lotes de barrica y acero, y el vino se estabiliza antes del embotellado.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<!-- NOTA DE CATA -->
+<section class="panel" data-k="cata" id="cata">
+<div class="eyebrow" data-i18n="t146">03 · Desde la bodega</div>
+<h2 class="h2" data-i18n="t147">Nota<br/><em>de cata</em></h2>
+<div class="tabs" role="tablist">
+<button aria-selected="true" class="tab" data-i18n="t148" data-k="color" role="tab">Color</button>
+<button aria-selected="false" class="tab" data-i18n="t149" data-k="aroma" role="tab">Aroma</button>
+<button aria-selected="false" class="tab" data-i18n="t150" data-k="boca" role="tab">Boca</button>
+</div>
+<div class="tabpanel" id="tabpanel" role="tabpanel"></div>
+</section>
+<!-- QUIZ -->
+<section class="panel dark" data-k="quiz" id="quiz">
+<div class="eyebrow" data-i18n="t151">04 · Pon a prueba tu paladar</div>
+<h2 class="h2" data-i18n="t152">¿Cuánto sabes<br/><em>de este vino?</em></h2>
+<div aria-live="polite" class="quiz" id="quizbox"></div>
+</section>
+<!-- MARIDAJE -->
+<section class="panel" data-k="maridaje" id="maridaje">
+<div class="eyebrow" data-i18n="t153">05 · A la mesa</div>
+<h2 class="h2" data-i18n="t154">Maridaje</h2>
+<p class="lede" data-i18n="t155">Nuestro Viognier es un ejemplar único y distintivo. Un vino que en su elegancia y balance encuentra la mejor expresión de las condiciones climáticas, geográficas y culturales de Cachapoal Andes.</p>
+<div aria-roledescription="carrusel" class="slider" id="slider">
+<div class="pairs" id="pairs" tabindex="0"></div>
+<div class="sctrl">
+<span class="scount" id="scount">01 <small data-i18n="t156">/ 03</small></span>
+<span aria-hidden="true" class="sbar"><i id="sbar"></i></span>
+<span class="sarrows">
+<button aria-label="Anterior" data-i18n-aria="prev" id="sprev" type="button"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path></svg></button>
+<button aria-label="Siguiente" data-i18n-aria="next" id="snext" type="button"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg></button>
+</span>
+</div>
+</div>
+</section>
+<!-- CIERRE -->
+<footer class="panel closing" data-k="final" id="final">
+<div class="spec">
+<div><small data-i18n="t157">Formato</small><b data-i18n="t158">6 × 750 ml</b></div>
+<div><small data-i18n="t159">Cajas por pallet</small><b data-i18n="t160">132</b></div>
+<div><small data-i18n="t161">Botellas por pallet</small><b data-i18n="t162">792</b></div>
+</div>
+<div class="sign"><img alt="Valle Secreto" src="vs.svg"/>Cachapoal Andes · Chile</div>
+</footer>
+</main>
+</div>
+<script>
+/* ===== Contenido editable (por idioma) ===== */
+const PAIR_FOTOS=["pair-salmon.jpg","pair-albacora.jpg","pair-fettuccine.jpg"];
+const NOTE_ICONS={
+  color:'<path d="M18 6h18l-2 14a7 7 0 0 1-14 0zM27 27v15M20 42h14M20 16h14"/>',
+  aroma:'<path d="M16 6c-4 10-4 18 2 24 4 4 10 4 14 0M30 14c3 2 5 5 5 9M36 10c4 3 7 8 7 14M14 40c6 2 12 2 18-2"/>',
+  boca:'<path d="M10 20c4-4 10-6 17-6s13 2 17 6c-4 10-10 16-17 16S14 30 10 20zM10 20c6 3 11 4 17 4s11-1 17-4"/>'
+};
+const BLEND=["80% Viognier · 20% Riesling","100% Viognier","85% Viognier · 15% Chardonnay","90% Viognier · 10% Sauvignon Blanc"];
+const L={
+ es:{
+  pairs:[
+   {t:"Salmón",d:"A la plancha o al horno. La textura untuosa del Viognier acompaña la grasa del pescado y su fruta realza los toques cítricos."},
+   {t:"Albacora",d:"Sellada o a la mantequilla. Las notas a durazno y flores blancas equilibran la intensidad de este pescado de carne firme."},
+   {t:"Fettuccine cuatro quesos",d:"Con abundante salsa blanca. El cuerpo medio-alto y el paso por barrica sostienen la cremosidad de los quesos."}],
+  ui:{q:"Pregunta",of:"de",hits:"Aciertos",ok:"¡Correcto!",no:"No era esa",correct:"La respuesta correcta es",next:"Siguiente pregunta",result:"Ver resultado",again:"Volver a jugar",toPair:"Ver maridaje"},
+  notes:{color:"Amarillo inconfundible con <b>destellos dorados</b>, de apariencia brillante y densa.",
+   aroma:"Muy perfumado. Destacan el <b>durazno blanquillo, el damasco y las frutas tropicales</b>, junto a flores blancas como jazmín y madreselva, con sutiles toques de miel y especias.",
+   boca:"Cuerpo medio-alto y <b>sensación untuosa</b>, con acidez de baja a moderada y un grado alcohólico equilibrado en el paladar."},
+  tabs:{color:"Color",aroma:"Aroma",boca:"Boca"},
+  q:[
+   {q:"¿Sabes a qué temperatura debes tomar este vino?",o:["6 a 8 °C, bien frío","11 a 13 °C","16 a 18 °C","Temperatura ambiente"],a:1,
+    e:"Se sirve entre <b>11 y 13 °C</b>. En este rango de temperatura nuestro Viognier logra su mejor expresión aromática y degustativa: el alcohol no interfiere en los aromas frutales y en boca se percibe el perfecto equilibrio entre acidez, volumen y persistencia."},
+   {q:"¿Cuánto tiempo hay que dejarlo respirar?",o:["Unas 2 horas en decantador","Unos minutos en la copa","Toda la noche","Una hora con la botella abierta"],a:1,
+    e:"No necesita decantador. Basta con <b>unos minutos en la copa</b>: al tomar un poco de aire y temperatura se abren el durazno, el jazmín y los toques de miel que aporta su paso por barrica."},
+   {q:"¿Cuál es la composición de este vino?",o:BLEND,a:1,
+    e:"Es <b>100% Viognier</b>. Esta cepa destaca por el equilibrio entre su opulencia aromática natural y la frescura que aporta el clima de altura cordillerano. La fuerte oscilación térmica entre el día y la noche ralentiza la maduración y retiene una <b>acidez más vibrante</b>."}],
+  final:[['Paladar de sommelier','Acertaste todo. Ya sabes cómo servir Private Viognier a la perfección.'],['Muy buen ojo','Tienes la base clara. Con estos tips vas a disfrutar cada copa al máximo.'],['Vas por buen camino','Ahora conoces los secretos para servirlo como corresponde.'],['Hora de brindar y aprender','Cada copa es una oportunidad. Repasa los tips y vuelve a intentarlo.']]
+ },
+ en:{
+  pairs:[
+   {t:"Salmon",d:"Grilled or baked. The Viognier's unctuous texture complements the richness of the fish, and its fruit lifts the citrus notes."},
+   {t:"Albacore",d:"Seared or in butter. Notes of peach and white flowers balance the intensity of this firm-fleshed fish."},
+   {t:"Four-cheese fettuccine",d:"With plenty of white sauce. The medium-high body and time in barrel stand up to the creaminess of the cheeses."}],
+  ui:{q:"Question",of:"of",hits:"Score",ok:"Correct!",no:"Not quite",correct:"The correct answer is",next:"Next question",result:"See result",again:"Play again",toPair:"See pairing"},
+  notes:{color:"Unmistakable yellow with <b>golden highlights</b>, bright and dense in appearance.",
+   aroma:"Very perfumed. <b>White peach, apricot and tropical fruit</b> stand out, alongside white flowers such as jasmine and honeysuckle, with subtle hints of honey and spice.",
+   boca:"Medium-high body and an <b>unctuous feel</b>, with low to moderate acidity and well-balanced alcohol on the palate."},
+  tabs:{color:"Color",aroma:"Aroma",boca:"Palate"},
+  q:[
+   {q:"Do you know what temperature to serve this wine at?",o:["6 to 8 °C, well chilled","11 to 13 °C","16 to 18 °C","Room temperature"],a:1,
+    e:"Serve it between <b>11 and 13 °C</b>. In this range our Viognier reaches its best aromatic and tasting expression: the alcohol does not interfere with the fruit aromas, and the palate shows a perfect balance of acidity, volume and persistence."},
+   {q:"How long should it breathe?",o:["About 2 hours in a decanter","A few minutes in the glass","Overnight","An hour with the bottle open"],a:1,
+    e:"It doesn't need decanting. <b>A few minutes in the glass</b> is enough: with a little air and warmth, the peach, jasmine and honey notes from its time in barrel open up."},
+   {q:"What is this wine's blend?",o:BLEND,a:1,
+    e:"It is <b>100% Viognier</b>. This variety stands out for the balance between its natural aromatic opulence and the freshness of the high-altitude Andean climate. The wide temperature swing between day and night slows ripening and retains <b>more vibrant acidity</b>."}],
+  final:[['A sommelier\'s palate','You got them all. You know how to serve Private Viognier to perfection.'],['Sharp eye','You have the basics down. With these tips you\'ll enjoy every glass to the fullest.'],['On the right track','Now you know the secrets to serving it properly.'],['Time to toast and learn','Every glass is a new chance. Review the tips and try again.']]
+ },
+ pt:{
+  pairs:[
+   {t:"Salmão",d:"Grelhado ou ao forno. A textura untuosa do Viognier acompanha a gordura do peixe e sua fruta realça os toques cítricos."},
+   {t:"Albacora",d:"Selada ou na manteiga. As notas de pêssego e flores brancas equilibram a intensidade deste peixe de carne firme."},
+   {t:"Fettuccine quatro queijos",d:"Com bastante molho branco. O corpo médio-alto e a passagem por barrica sustentam a cremosidade dos queijos."}],
+  ui:{q:"Pergunta",of:"de",hits:"Acertos",ok:"Correto!",no:"Não era essa",correct:"A resposta correta é",next:"Próxima pergunta",result:"Ver resultado",again:"Jogar de novo",toPair:"Ver harmonização"},
+  notes:{color:"Amarelo inconfundível com <b>reflexos dourados</b>, de aparência brilhante e densa.",
+   aroma:"Muito perfumado. Destacam-se o <b>pêssego branco, o damasco e as frutas tropicais</b>, junto a flores brancas como jasmim e madressilva, com sutis toques de mel e especiarias.",
+   boca:"Corpo médio-alto e <b>sensação untuosa</b>, com acidez de baixa a moderada e teor alcoólico equilibrado no paladar."},
+  tabs:{color:"Cor",aroma:"Aroma",boca:"Boca"},
+  q:[
+   {q:"Você sabe a que temperatura deve tomar este vinho?",o:["6 a 8 °C, bem gelado","11 a 13 °C","16 a 18 °C","Temperatura ambiente"],a:1,
+    e:"Serve-se entre <b>11 e 13 °C</b>. Nessa faixa de temperatura nosso Viognier alcança sua melhor expressão aromática e gustativa: o álcool não interfere nos aromas frutados e na boca percebe-se o perfeito equilíbrio entre acidez, volume e persistência."},
+   {q:"Quanto tempo é preciso deixá-lo respirar?",o:["Cerca de 2 horas no decanter","Alguns minutos na taça","A noite toda","Uma hora com a garrafa aberta"],a:1,
+    e:"Não precisa de decanter. Bastam <b>alguns minutos na taça</b>: ao tomar um pouco de ar e temperatura, abrem-se o pêssego, o jasmim e os toques de mel que vêm da passagem por barrica."},
+   {q:"Qual é a composição deste vinho?",o:BLEND,a:1,
+    e:"É <b>100% Viognier</b>. Esta uva se destaca pelo equilíbrio entre sua opulência aromática natural e o frescor trazido pelo clima de altitude da cordilheira. A forte amplitude térmica entre o dia e a noite desacelera o amadurecimento e retém uma <b>acidez mais vibrante</b>."}],
+  final:[['Paladar de sommelier','Você acertou tudo. Já sabe servir o Private Viognier com perfeição.'],['Muito bom olho','Você tem a base clara. Com estas dicas vai aproveitar cada taça ao máximo.'],['No caminho certo','Agora você conhece os segredos para servi-lo como se deve.'],['Hora de brindar e aprender','Cada taça é uma oportunidade. Revise as dicas e tente de novo.']]
+ }
+};
+let LANG='es';
+const T=()=>L[LANG];
+const I18N={"es": {"t1": "Inicio", "t2": "Ficha técnica", "t3": "Proceso", "t4": "Nota de cata", "t5": "Quiz", "t6": "Maridaje", "t7": "<b>14% vol</b>6 g/L de azúcar · pH 3,18", "t8": "<b>20% en barrica</b>Roble francés de 500 L · 6 meses sobre lías", "t9": "<b>Amarillo dorado</b>Brillante y denso, con destellos dorados", "t10": "<b>Botella numerada</b>Cada añada es una edición limitada", "t11": "<b>Cachapoal Andes</b>Un blanco para la mesa: pescados y salsas cremosas", "t12": "Inicio", "t13": "Ficha técnica", "t14": "Proceso", "t15": "Nota de cata", "t16": "Quiz", "t17": "Maridaje", "t18": "Vino de Chile · Cosecha 2025", "t19": "5.088", "t20": "botellas numeradas", "t21": "2025", "t22": "CACHAPOAL ANDES · CHILE", "t23": "La línea <b>Private</b> nace en 2009 y reúne cinco vinos que expresan el terroir de Cachapoal Andes. Cada añada es una <b>edición limitada, con botellas numeradas</b>. Sus vinos presentan taninos frescos, delicados y finos aromas, y se guardan en barricas de roble francés.", "t24": "Blanco seco", "t25": "Valle de Cachapoal", "t26": "750 ml", "t27": "14% vol", "t28": "Edición numerada", "t29": "Ficha técnica", "t30": "Proceso", "t31": "Nota de cata", "t32": "Quiz", "t33": "Maridaje", "t34": "01 · Ficha técnica", "t35": "Análisis<br/><em>técnico</em>", "t36": "Cepa", "t37": "Viognier", "t38": "Origen", "t39": "Cachapoal Andes", "t40": "Estilo", "t41": "Blanco seco", "t42": "Alcohol", "t43": "% vol", "t44": "0%", "t45": "Blancos con cuerpo · 13–14,5%", "t46": "20%", "t47": "Qué es", "t48": "La parte del vino que es alcohol. Con 14%, una botella de 750 ml tiene unos <b>105 ml de alcohol</b>.", "t49": "Cómo se forma", "t50": "En la fermentación, las levaduras transforman el azúcar de la uva en alcohol. Uva más madura, más azúcar y más alcohol.", "t51": "Qué aporta", "t52": "Cuerpo, textura y una sensación de calidez. En este Viognier explica su <b>paso untuoso</b> y ayuda a llevar los aromas.", "t53": "Así nace el alcohol", "t54": "Azúcar de la uva", "t55": "Levaduras", "t56": "Alcohol + gas carbónico", "t57": "Cada <b>17 g de azúcar</b> por litro dan cerca de <b>1% de alcohol</b>.", "t58": "Acidez total", "t59": "g/L", "t60": "Suave · 4", "t61": "Fresco · 8 g/L", "t62": "Qué es", "t63": "La cantidad total de ácidos naturales del vino, sobre todo <b>tartárico y málico</b>, que vienen de la uva.", "t64": "Cómo se forma", "t65": "Nace en el viñedo. La uva pierde acidez a medida que madura; las noches frescas de la cordillera ayudan a conservarla.", "t66": "Qué aporta", "t67": "Frescor y esa sensación de que la boca se hace agua. Con 6,2 g/L, el Private es <b>fresco sin ser punzante</b>.", "t68": "La acidez equilibra el vino", "t69": "<b>6,2 g/L</b>Acidez · frescor", "t70": "<b>14% · 6 g/L</b>Alcohol y azúcar · calidez y redondez", "t71": "Sin acidez, el vino se siente plano y pesado; con demasiada, áspero.", "t72": "pH", "t73": "3,18", "t74": "2,8 · más ácido", "t75": "4,0 · menos ácido", "t76": "Qué es", "t77": "Mide <b>qué tan intensa</b> es la acidez, no cuánta hay. Mientras más bajo el número, más ácido. Los vinos se mueven entre 3 y 4.", "t78": "Cómo se forma", "t79": "Depende de los ácidos de la uva y de sus minerales, como el potasio, que lo hacen subir.", "t80": "Qué aporta", "t81": "Protege al vino de bacterias y mantiene su color y frescura en el tiempo. Con 3,18 es un <b>vino estable y vivo</b>.", "t82": "El pH del Private, comparado", "t83": "Limón<br/>2,3", "t84": "Private 3,18", "t85": "Vinos<br/>3 a 4", "t86": "Café<br/>5", "t87": "Agua<br/>7", "t88": "Azúcar residual", "t89": "g/L", "t90": "0", "t91": "12 g/L", "t92": "Qué es", "t93": "El azúcar de la uva que quedó <b>sin transformarse en alcohol</b> al terminar la fermentación.", "t94": "Cómo se forma", "t95": "Depende de cuándo terminan su trabajo las levaduras. En este vino transformaron casi todo el azúcar.", "t96": "Qué aporta", "t97": "Algo de redondez. Su acidez de 6,2 g/L compensa el dulzor y el vino <b>se percibe seco</b>. Una copa de 150 ml tiene menos de 1 g de azúcar.", "t98": "¿Seco o dulce?", "t99": "Private · 6,0", "t100": "0", "t101": "4", "t102": "9", "t103": "16 g/L", "t104": "La norma internacional acepta como seco un vino de hasta 9 g/L cuando su acidez está a menos de 2 g del azúcar.", "t105": "02 · Del viñedo a la botella", "t106": "Cómo se<br/><em>hace</em>", "t107": "En el viñedo", "t108": "Donde crece y se cosecha la uva", "t109": "Conducción", "t110": "Espaldera simple", "t111": "Hileras con orientación norte-sur", "t112": "Densidad", "t113": "4.200", "t114": "plantas por hectárea", "t115": "Producción", "t116": "1,5 a 2 kg", "t117": "de uva por planta", "t118": "Cosecha manual", "t119": "La uva se corta a mano en gamelas de 10 kilos y se transporta hasta la bodega, donde comienza la vinificación.", "t120": "En la bodega", "t121": "Dónde fermenta el mosto", "t122": "20%", "t123": "Barrica", "t124": "80%", "t125": "Acero inoxidable", "t126": "Barricas francesas de 500 L", "t127": "Tostado medio, de un uso", "t128": "27 días de fermentación", "t129": "Estanques de acero", "t130": "Gota y prensa en estanques separados", "t131": "17 días de fermentación", "t132": "Paso a paso", "t133": "El recorrido en la bodega, de la uva a la botella", "t134": "Molienda y frío", "t135": "La uva se muele y el mosto reposa <b>24 horas en frío</b> en estanque.", "t136": "Descube", "t137": "Se separa la gota, el mosto que escurre solo, y el resto se prensa.", "t138": "Fermentación alcohólica", "t139": "El <b>20% de la gota</b> fermenta en barricas francesas de 500 litros. En los estanques se usa levadura y nutrición según lo que pida cada lote.", "t140": "Desborre y sulfitado", "t141": "Terminada la fermentación, el vino se limpia de sus borras y se sulfita en estanques de acero.", "t142": "Crianza sobre lías", "t143": "Tras un trasiego de ida y vuelta, el vino descansa <b>6 meses en barrica</b>. Una vez por semana se hace bastoneo: se remueven las lías para dar volumen y textura.", "t144": "Mezcla y estabilización", "t145": "Se unen los lotes de barrica y acero, y el vino se estabiliza antes del embotellado.", "t146": "03 · Desde la bodega", "t147": "Nota<br/><em>de cata</em>", "t148": "Color", "t149": "Aroma", "t150": "Boca", "t151": "04 · Pon a prueba tu paladar", "t152": "¿Cuánto sabes<br/><em>de este vino?</em>", "t153": "05 · A la mesa", "t154": "Maridaje", "t155": "Nuestro Viognier es un ejemplar único y distintivo. Un vino que en su elegancia y balance encuentra la mejor expresión de las condiciones climáticas, geográficas y culturales de Cachapoal Andes.", "t156": "/ 03", "t157": "Formato", "t158": "6 × 750 ml", "t159": "Cajas por pallet", "t160": "132", "t161": "Botellas por pallet", "t162": "792", "cue": "Desliza para descubrirlo", "more": "¿Qué significa?"}, "en": {"t1": "Home", "t2": "Tech sheet", "t3": "Process", "t4": "Tasting notes", "t5": "Quiz", "t6": "Pairing", "t7": "<b>14% vol</b>6 g/L sugar · pH 3.18", "t8": "<b>20% in barrel</b>500 L French oak · 6 months on lees", "t9": "<b>Golden yellow</b>Bright and dense, with golden highlights", "t10": "<b>Numbered bottle</b>Every vintage is a limited edition", "t11": "<b>Cachapoal Andes</b>A white for the table: fish and creamy sauces", "t12": "Home", "t13": "Tech sheet", "t14": "Process", "t15": "Tasting notes", "t16": "Quiz", "t17": "Pairing", "t18": "Wine of Chile · 2025 Vintage", "t19": "5,088", "t20": "numbered bottles", "t21": "2025", "t22": "CACHAPOAL ANDES · CHILE", "t23": "The <b>Private</b> line was born in 2009 and brings together five wines that express the terroir of Cachapoal Andes. Each vintage is a <b>limited edition of numbered bottles</b>. Its wines show fresh, delicate tannins and fine aromas, and are aged in French oak barrels.", "t24": "Dry white", "t25": "Cachapoal Valley", "t26": "750 ml", "t27": "14% vol", "t28": "Numbered edition", "t29": "Tech sheet", "t30": "Process", "t31": "Tasting notes", "t32": "Quiz", "t33": "Pairing", "t34": "01 · Tech sheet", "t35": "Technical<br/><em>analysis</em>", "t36": "Grape", "t37": "Viognier", "t38": "Origin", "t39": "Cachapoal Andes", "t40": "Style", "t41": "Dry white", "t42": "Alcohol", "t43": "% vol", "t44": "0%", "t45": "Full-bodied whites · 13–14.5%", "t46": "20%", "t47": "What it is", "t48": "The share of the wine that is alcohol. At 14%, a 750 ml bottle holds about <b>105 ml of alcohol</b>.", "t49": "How it forms", "t50": "During fermentation, yeasts turn the grape's sugar into alcohol. Riper grapes mean more sugar and more alcohol.", "t51": "What it brings", "t52": "Body, texture and a sense of warmth. In this Viognier it explains its <b>unctuous texture</b> and helps carry the aromas.", "t53": "How alcohol is born", "t54": "Grape sugar", "t55": "Yeasts", "t56": "Alcohol + carbon dioxide", "t57": "Every <b>17 g of sugar</b> per liter yields about <b>1% alcohol</b>.", "t58": "Total acidity", "t59": "g/L", "t60": "Soft · 4", "t61": "Crisp · 8 g/L", "t62": "What it is", "t63": "The total amount of natural acids in the wine, mainly <b>tartaric and malic</b>, which come from the grape.", "t64": "How it forms", "t65": "It starts in the vineyard. Grapes lose acidity as they ripen; cool nights from the Andes help preserve it.", "t66": "What it brings", "t67": "Freshness and that mouth-watering sensation. At 6.2 g/L, Private is <b>fresh without being sharp</b>.", "t68": "Acidity balances the wine", "t69": "<b>6.2 g/L</b>Acidity · freshness", "t70": "<b>14% · 6 g/L</b>Alcohol and sugar · warmth and roundness", "t71": "Without acidity, wine feels flat and heavy; with too much, harsh.", "t72": "pH", "t73": "3.18", "t74": "2.8 · more acidic", "t75": "4.0 · less acidic", "t76": "What it is", "t77": "It measures <b>how intense</b> the acidity is, not how much there is. The lower the number, the more acidic. Wines range between 3 and 4.", "t78": "How it forms", "t79": "It depends on the grape's acids and its minerals, such as potassium, which raise it.", "t80": "What it brings", "t81": "It protects the wine from bacteria and keeps its color and freshness over time. At 3.18 it is a <b>stable, lively wine</b>.", "t82": "Private's pH, compared", "t83": "Lemon<br/>2.3", "t84": "Private 3.18", "t85": "Wines<br/>3 to 4", "t86": "Coffee<br/>5", "t87": "Water<br/>7", "t88": "Residual sugar", "t89": "g/L", "t90": "0", "t91": "12 g/L", "t92": "What it is", "t93": "Grape sugar that remained <b>unconverted into alcohol</b> at the end of fermentation.", "t94": "How it forms", "t95": "It depends on when the yeasts finish their work. In this wine they converted almost all the sugar.", "t96": "What it brings", "t97": "A touch of roundness. Its 6.2 g/L acidity offsets the sweetness, so the wine <b>tastes dry</b>. A 150 ml glass has less than 1 g of sugar.", "t98": "Dry or sweet?", "t99": "Private · 6.0", "t100": "0", "t101": "4", "t102": "9", "t103": "16 g/L", "t104": "International standards accept a wine as dry up to 9 g/L when its acidity is within 2 g of the sugar.", "t105": "02 · From vineyard to bottle", "t106": "How it's<br/><em>made</em>", "t107": "In the vineyard", "t108": "Where the grapes grow and are harvested", "t109": "Training", "t110": "Single trellis", "t111": "North-south oriented rows", "t112": "Density", "t113": "4,200", "t114": "vines per hectare", "t115": "Yield", "t116": "1.5 to 2 kg", "t117": "of grapes per vine", "t118": "Hand harvest", "t119": "Grapes are hand-picked into 10-kilo bins and taken to the winery, where winemaking begins.", "t120": "In the winery", "t121": "Where the must ferments", "t122": "20%", "t123": "Barrel", "t124": "80%", "t125": "Stainless steel", "t126": "500 L French barrels", "t127": "Medium toast, used once before", "t128": "27 days of fermentation", "t129": "Steel tanks", "t130": "Free-run and press juice in separate tanks", "t131": "17 days of fermentation", "t132": "Step by step", "t133": "The journey through the winery, from grape to bottle", "t134": "Crushing and chilling", "t135": "The grapes are crushed and the must rests <b>24 hours chilled</b> in tank.", "t136": "Draining", "t137": "The free-run juice, which flows on its own, is separated and the rest is pressed.", "t138": "Alcoholic fermentation", "t139": "<b>20% of the free-run juice</b> ferments in 500-liter French barrels. In the tanks, yeast and nutrients are added as each lot requires.", "t140": "Racking and sulfiting", "t141": "Once fermentation ends, the wine is racked off its lees and sulfited in steel tanks.", "t142": "Aging on lees", "t143": "After racking out and back, the wine rests <b>6 months in barrel</b>. Once a week the lees are stirred (bâtonnage) to add volume and texture.", "t144": "Blending and stabilization", "t145": "The barrel and tank lots are blended, and the wine is stabilized before bottling.", "t146": "03 · From the winery", "t147": "Tasting<br/><em>notes</em>", "t148": "Color", "t149": "Aroma", "t150": "Palate", "t151": "04 · Test your palate", "t152": "How well do you know<br/><em>this wine?</em>", "t153": "05 · At the table", "t154": "Pairing", "t155": "Our Viognier is a unique and distinctive wine. In its elegance and balance, it finds the finest expression of the climatic, geographic and cultural conditions of Cachapoal Andes.", "t156": "/ 03", "t157": "Format", "t158": "6 × 750 ml", "t159": "Cases per pallet", "t160": "132", "t161": "Bottles per pallet", "t162": "792", "cue": "Scroll to discover", "more": "What does it mean?"}, "pt": {"t1": "Início", "t2": "Ficha técnica", "t3": "Processo", "t4": "Nota de degustação", "t5": "Quiz", "t6": "Harmonização", "t7": "<b>14% vol</b>6 g/L de açúcar · pH 3,18", "t8": "<b>20% em barrica</b>Carvalho francês de 500 L · 6 meses sobre borras", "t9": "<b>Amarelo dourado</b>Brilhante e denso, com reflexos dourados", "t10": "<b>Garrafa numerada</b>Cada safra é uma edição limitada", "t11": "<b>Cachapoal Andes</b>Um branco para a mesa: peixes e molhos cremosos", "t12": "Início", "t13": "Ficha técnica", "t14": "Processo", "t15": "Nota de degustação", "t16": "Quiz", "t17": "Harmonização", "t18": "Vinho do Chile · Safra 2025", "t19": "5.088", "t20": "garrafas numeradas", "t21": "2025", "t22": "CACHAPOAL ANDES · CHILE", "t23": "A linha <b>Private</b> nasceu em 2009 e reúne cinco vinhos que expressam o terroir de Cachapoal Andes. Cada safra é uma <b>edição limitada, com garrafas numeradas</b>. Seus vinhos apresentam taninos frescos, delicados e aromas finos, e são guardados em barricas de carvalho francês.", "t24": "Branco seco", "t25": "Vale do Cachapoal", "t26": "750 ml", "t27": "14% vol", "t28": "Edição numerada", "t29": "Ficha técnica", "t30": "Processo", "t31": "Nota de degustação", "t32": "Quiz", "t33": "Harmonização", "t34": "01 · Ficha técnica", "t35": "Análise<br/><em>técnica</em>", "t36": "Uva", "t37": "Viognier", "t38": "Origem", "t39": "Cachapoal Andes", "t40": "Estilo", "t41": "Branco seco", "t42": "Álcool", "t43": "% vol", "t44": "0%", "t45": "Brancos encorpados · 13–14,5%", "t46": "20%", "t47": "O que é", "t48": "A parte do vinho que é álcool. Com 14%, uma garrafa de 750 ml tem cerca de <b>105 ml de álcool</b>.", "t49": "Como se forma", "t50": "Na fermentação, as leveduras transformam o açúcar da uva em álcool. Uva mais madura, mais açúcar e mais álcool.", "t51": "O que traz", "t52": "Corpo, textura e uma sensação de calor. Neste Viognier explica sua <b>textura untuosa</b> e ajuda a levar os aromas.", "t53": "Assim nasce o álcool", "t54": "Açúcar da uva", "t55": "Leveduras", "t56": "Álcool + gás carbônico", "t57": "Cada <b>17 g de açúcar</b> por litro geram cerca de <b>1% de álcool</b>.", "t58": "Acidez total", "t59": "g/L", "t60": "Suave · 4", "t61": "Fresco · 8 g/L", "t62": "O que é", "t63": "A quantidade total de ácidos naturais do vinho, sobretudo <b>tartárico e málico</b>, que vêm da uva.", "t64": "Como se forma", "t65": "Nasce no vinhedo. A uva perde acidez à medida que amadurece; as noites frescas da cordilheira ajudam a conservá-la.", "t66": "O que traz", "t67": "Frescor e aquela sensação de dar água na boca. Com 6,2 g/L, o Private é <b>fresco sem ser agressivo</b>.", "t68": "A acidez equilibra o vinho", "t69": "<b>6,2 g/L</b>Acidez · frescor", "t70": "<b>14% · 6 g/L</b>Álcool e açúcar · calor e redondeza", "t71": "Sem acidez, o vinho fica plano e pesado; com acidez demais, áspero.", "t72": "pH", "t73": "3,18", "t74": "2,8 · mais ácido", "t75": "4,0 · menos ácido", "t76": "O que é", "t77": "Mede <b>quão intensa</b> é a acidez, não quanto há. Quanto menor o número, mais ácido. Os vinhos ficam entre 3 e 4.", "t78": "Como se forma", "t79": "Depende dos ácidos da uva e de seus minerais, como o potássio, que o fazem subir.", "t80": "O que traz", "t81": "Protege o vinho de bactérias e mantém sua cor e frescor ao longo do tempo. Com 3,18 é um <b>vinho estável e vivo</b>.", "t82": "O pH do Private, comparado", "t83": "Limão<br/>2,3", "t84": "Private 3,18", "t85": "Vinhos<br/>3 a 4", "t86": "Café<br/>5", "t87": "Água<br/>7", "t88": "Açúcar residual", "t89": "g/L", "t90": "0", "t91": "12 g/L", "t92": "O que é", "t93": "O açúcar da uva que ficou <b>sem se transformar em álcool</b> ao final da fermentação.", "t94": "Como se forma", "t95": "Depende de quando as leveduras terminam seu trabalho. Neste vinho elas transformaram quase todo o açúcar.", "t96": "O que traz", "t97": "Um pouco de redondeza. Sua acidez de 6,2 g/L compensa o dulçor e o vinho <b>é percebido como seco</b>. Uma taça de 150 ml tem menos de 1 g de açúcar.", "t98": "Seco ou doce?", "t99": "Private · 6,0", "t100": "0", "t101": "4", "t102": "9", "t103": "16 g/L", "t104": "A norma internacional aceita como seco um vinho de até 9 g/L quando sua acidez está a menos de 2 g do açúcar.", "t105": "02 · Do vinhedo à garrafa", "t106": "Como é<br/><em>feito</em>", "t107": "No vinhedo", "t108": "Onde a uva cresce e é colhida", "t109": "Condução", "t110": "Espaldeira simples", "t111": "Fileiras com orientação norte-sul", "t112": "Densidade", "t113": "4.200", "t114": "plantas por hectare", "t115": "Produção", "t116": "1,5 a 2 kg", "t117": "de uva por planta", "t118": "Colheita manual", "t119": "A uva é colhida à mão em caixas de 10 quilos e levada até a vinícola, onde começa a vinificação.", "t120": "Na vinícola", "t121": "Onde o mosto fermenta", "t122": "20%", "t123": "Barrica", "t124": "80%", "t125": "Aço inoxidável", "t126": "Barricas francesas de 500 L", "t127": "Tosta média, de um uso", "t128": "27 dias de fermentação", "t129": "Tanques de aço", "t130": "Mosto flor e de prensa em tanques separados", "t131": "17 dias de fermentação", "t132": "Passo a passo", "t133": "O percurso na vinícola, da uva à garrafa", "t134": "Moagem e frio", "t135": "A uva é moída e o mosto repousa <b>24 horas no frio</b> em tanque.", "t136": "Descuba", "t137": "Separa-se o mosto flor, que escorre sozinho, e o restante é prensado.", "t138": "Fermentação alcoólica", "t139": "<b>20% do mosto flor</b> fermenta em barricas francesas de 500 litros. Nos tanques usam-se leveduras e nutrientes conforme a necessidade de cada lote.", "t140": "Desborra e sulfitagem", "t141": "Terminada a fermentação, o vinho é separado das borras e sulfitado em tanques de aço.", "t142": "Amadurecimento sobre borras", "t143": "Após uma trasfega de ida e volta, o vinho repousa <b>6 meses em barrica</b>. Uma vez por semana é feita a bâtonnage: as borras são remexidas para dar volume e textura.", "t144": "Corte e estabilização", "t145": "Os lotes de barrica e aço são unidos, e o vinho é estabilizado antes do engarrafamento.", "t146": "03 · Da vinícola", "t147": "Nota de<br/><em>degustação</em>", "t148": "Cor", "t149": "Aroma", "t150": "Boca", "t151": "04 · Teste seu paladar", "t152": "Quanto você sabe<br/><em>sobre este vinho?</em>", "t153": "05 · À mesa", "t154": "Harmonização", "t155": "Nosso Viognier é um exemplar único e distintivo. Um vinho que, em sua elegância e equilíbrio, encontra a melhor expressão das condições climáticas, geográficas e culturais de Cachapoal Andes.", "t156": "/ 03", "t157": "Formato", "t158": "6 × 750 ml", "t159": "Caixas por pallet", "t160": "132", "t161": "Garrafas por pallet", "t162": "792", "cue": "Deslize para descobrir", "more": "O que significa?"}};
+const ARIA={"es": {"bottle": "Botella de Valle Secreto Private Viognier 2025, cápsula morada y etiqueta blanca", "nav": "Secciones", "mnav": "Secciones de la ficha", "bar": "20% del mosto fermenta en barrica y 80% en acero inoxidable", "phs": "Escala de pH: limón 2,3; Private 3,18; café 5; agua 7. Los vinos están entre 3 y 4.", "prev": "Anterior", "next": "Siguiente", "lang": "Idioma"}, "en": {"bottle": "Valle Secreto Private Viognier 2025 bottle, purple capsule and white label", "nav": "Sections", "mnav": "Sections of the sheet", "bar": "20% of the must ferments in barrel and 80% in stainless steel", "phs": "pH scale: lemon 2.3; Private 3.18; coffee 5; water 7. Wines range from 3 to 4.", "prev": "Previous", "next": "Next", "lang": "Language"}, "pt": {"bottle": "Garrafa de Valle Secreto Private Viognier 2025, cápsula roxa e rótulo branco", "nav": "Seções", "mnav": "Seções da ficha", "bar": "20% do mosto fermenta em barrica e 80% em aço inoxidável", "phs": "Escala de pH: limão 2,3; Private 3,18; café 5; água 7. Os vinhos ficam entre 3 e 4.", "prev": "Anterior", "next": "Próximo", "lang": "Idioma"}};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Escenario: la botella cambia con cada sección ---------- */
+var stage=document.getElementById('stage');
+const links=[...document.querySelectorAll('#index a')];
+function setState(k){
+  if(stage.dataset.s===k)return;
+  stage.dataset.s=k;
+  links.forEach(a=>a.classList.toggle('on',a.dataset.k===k||(k==='final'&&a.dataset.k==='maridaje')));
+  mbar.dataset.s=k;
+  mlinks.forEach(a=>{const on=a.dataset.k===k;a.classList.toggle('on',on);
+    if(on&&mbar.classList.contains('show')){const ul=a.parentNode.parentNode;ul.scrollTo({left:a.parentNode.offsetLeft-ul.clientWidth/2+a.parentNode.offsetWidth/2,behavior:reduce?'auto':'smooth'})}});
+}
+const mbar=document.getElementById('mbar'),mlinks=[...mbar.querySelectorAll('a')],mnav=document.querySelector('.mnav');
+function barVis(){mbar.classList.toggle('show',mnav.getBoundingClientRect().bottom<0)}
+addEventListener('scroll',barVis,{passive:true});barVis();
+const panels=[...document.querySelectorAll('.content [data-k]')];
+function pick(){
+  const mid=innerHeight*.5;let cur=panels[0].dataset.k;
+  for(const p of panels){if(p.getBoundingClientRect().top<=mid)cur=p.dataset.k}
+  setState(cur);
+}
+let tk=false;addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(()=>{tk=false;pick()})}},{passive:true});
+addEventListener('resize',pick);pick();
+links.forEach(a=>a.classList.toggle('on',a.dataset.k===stage.dataset.s));
+
+/* ---------- Nota de cata ---------- */
+const tabpanel=document.getElementById('tabpanel');
+function showTab(k,anim=true){
+  document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===k));
+  curTab=k;tabpanel.innerHTML=`<svg viewBox="0 0 54 48">${NOTE_ICONS[k]}</svg><p>${T().notes[k]}</p>`;
+  if(anim)tabpanel.lastChild.animate?.([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:400});
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.k)));
+let curTab='color';showTab('color',false);
+
+/* ---------- Maridaje ---------- */
+const track=document.getElementById('pairs'),sbar=document.getElementById('sbar'),scount=document.getElementById('scount');
+function renderPairs(){track.innerHTML=T().pairs.map((p,j)=>`
+  <article class="pair">
+    <div class="ph"><img src="${PAIR_FOTOS[j]}" alt="${p.t}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+    <h3>${p.t}</h3><p>${p.d}</p>
+  </article>`).join('');}
+renderPairs();
+const AUTO_MS=5000;let sIdx=0,sTimer=null,sHover=false,sVisible=false;
+const slides=()=>[...track.children];
+const pad=n=>String(n).padStart(2,'0');
+function markSlide(i){sIdx=i;scount.innerHTML=`${pad(i+1)} <small>/ ${pad(slides().length)}</small>`;}
+function goSlide(i){
+  const n=slides().length;i=(i+n)%n;
+  track.scrollTo({left:slides()[i].offsetLeft-track.offsetLeft,behavior:reduce?'auto':'smooth'});
+  markSlide(i);restartAuto();
+}
+let sRaf=0;
+track.addEventListener('scroll',()=>{cancelAnimationFrame(sRaf);sRaf=requestAnimationFrame(()=>{
+  const sl=track.scrollLeft,max=track.scrollWidth-track.clientWidth;
+  let i=0,best=1e9;slides().forEach((el,j)=>{const d=Math.abs(el.offsetLeft-track.offsetLeft-sl);if(d<best){best=d;i=j}});
+  if(max>0&&sl>=max-4)i=slides().length-1;
+  if(i!==sIdx)markSlide(i);
+})},{passive:true});
+function restartAuto(){
+  clearTimeout(sTimer);sbar.classList.remove('run');void sbar.offsetWidth;
+  if(reduce||sHover||!sVisible||track.scrollWidth<=track.clientWidth+4)return;
+  sbar.style.setProperty('--dur',AUTO_MS+'ms');sbar.classList.add('run');
+  sTimer=setTimeout(()=>goSlide(sIdx+1),AUTO_MS);
+}
+document.getElementById('sprev').addEventListener('click',()=>goSlide(sIdx-1));
+document.getElementById('snext').addEventListener('click',()=>goSlide(sIdx+1));
+track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();goSlide(sIdx+1)}if(e.key==='ArrowLeft'){e.preventDefault();goSlide(sIdx-1)}});
+const slider=document.getElementById('slider');
+slider.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){sHover=true;restartAuto()}});
+slider.addEventListener('pointerleave',()=>{sHover=false;restartAuto()});
+track.addEventListener('touchstart',()=>{clearTimeout(sTimer);sbar.classList.remove('run')},{passive:true});
+track.addEventListener('touchend',()=>setTimeout(restartAuto,600),{passive:true});
+if('IntersectionObserver' in window){
+  new IntersectionObserver(en=>{sVisible=en[0].isIntersecting;restartAuto()},{threshold:.4}).observe(slider);
+}
+
+/* ---------- Quiz ---------- */
+const box=document.getElementById('quizbox');
+let qi=0,score=0,res=[];
+function segs(){return `<div class="segs">${T().q.map((_,i)=>`<i class="${res[i]===true?'ok':res[i]===false?'bad':i===qi?'cur':''}"></i>`).join('')}</div>`}
+function renderQ(){
+  const it=T().q[qi];
+  box.innerHTML=`<div class="qhead"><span class="qcount">${T().ui.q} ${qi+1} ${T().ui.of} ${T().q.length}</span><span class="qscore">${T().ui.hits}: <b>${score}</b></span></div>${segs()}
+  <h3 class="qtitle">${it.q}</h3>
+  <div class="opts">${it.o.map((o,i)=>`<button class="opt" type="button" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="t">${o}</span></button>`).join('')}</div>`;
+  box.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>answer(+b.dataset.i)));
+}
+function answer(i){
+  const it=T().q[qi],ok=i===it.a;
+  if(ok)score++; res[qi]=ok;
+  box.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;
+    if(j===it.a){b.classList.add('right');b.querySelector('.k').textContent='✓'}
+    else if(j===i){b.classList.add('wrong');b.querySelector('.k').textContent='✕'}
+    else b.classList.add('dim');});
+  box.querySelector('.segs').outerHTML=segs();
+  box.querySelector('.qscore b').textContent=score;
+  const fb=document.createElement('div');fb.className='fb'+(ok?'':' no');
+  fb.innerHTML=`<h4>${ok?T().ui.ok:T().ui.no}</h4><p>${ok?'':T().ui.correct+' <b>'+it.o[it.a]+'</b>. '}${it.e}</p>`;
+  const nx=document.createElement('button');nx.className='btn';nx.type='button';
+  nx.textContent=qi<T().q.length-1?T().ui.next:T().ui.result;
+  nx.addEventListener('click',()=>{qi++;if(qi<T().q.length)renderQ();else renderEnd();box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'})});
+  box.append(fb,nx);nx.focus({preventScroll:true});
+}
+function renderEnd(){
+  const n=T().q.length,F=T().final,t=score===n?F[0]:score===n-1?F[1]:score>=1?F[2]:F[3];
+  box.innerHTML=`${segs()}<div class="final"><div class="big">${score}<small>/${n}</small></div><h3>${t[0]}</h3><p class="lede">${t[1]}</p>
+  <div class="row"><button class="btn" type="button" id="again">${T().ui.again}</button><a class="btn ghost" href="#maridaje">${T().ui.toPair}</a></div></div>`;
+  document.getElementById('again').addEventListener('click',()=>{qi=0;score=0;res=[];renderQ()});
+}
+renderQ();
+
+/* ---------- Medidores: se llenan cada vez que entran en pantalla ---------- */
+if('IntersectionObserver' in window && !reduce){
+  const io=new IntersectionObserver(en=>en.forEach(e=>{
+    const el=e.target;
+    if(e.isIntersecting){if(el.classList.contains('armed'))requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.remove('armed')));}
+    else el.classList.add('armed');            // fuera de pantalla: vuelve a cero para la próxima visita
+  }),{threshold:0});
+  document.querySelectorAll('.armable').forEach(el=>{
+    if(el.getBoundingClientRect().top>=innerHeight)el.classList.add('armed');
+    io.observe(el);
+  });
+}
+
+/* ---------- Idioma: ES · EN · PT ---------- */
+function setLang(l,first){
+  if(!L[l])l='es';LANG=l;
+  document.documentElement.lang=l==='pt'?'pt-BR':l;
+  const D=I18N[l];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=D[el.dataset.i18n];if(v!=null&&el.innerHTML!==v)el.innerHTML=v;});
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const v=ARIA[l][el.dataset.i18nAria];if(v)el.setAttribute('aria-label',v);});
+  document.querySelectorAll('.tab').forEach(b=>{b.textContent=T().tabs[b.dataset.k]});
+  document.querySelectorAll('#lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+  if(!first){renderPairs();markSlide(sIdx);showTab(curTab,false);qi=0;score=0;res=[];renderQ();}
+  try{localStorage.setItem('pvt-lang',l)}catch(e){}
+}
+document.querySelectorAll('#lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
+(function(){let l='es';try{l=localStorage.getItem('pvt-lang')||'es'}catch(e){}
+  if(l!=='es')setLang(l);else setLang('es',true);})();
+</script>
+</body>
+</html>
